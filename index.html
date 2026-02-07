@@ -4,9 +4,9 @@
   <title>AQUILA ACCESS TERMINAL</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="terminal-body">
 
-  <!-- TERMINAL -->
   <div class="terminal">
     <h1>AQUILA PMC</h1>
     <p id="terminal-text">SECURE INTERNAL SYSTEM...</p>
@@ -28,14 +28,14 @@
     <p id="hud-rank"></p>
   </div>
 
-  <!-- WARNING OVERLAY -->
+  <!-- OVERLAY -->
   <div id="warning-overlay">
-    <div class="warning-text" id="warning-message"></div>
+    <div class="warning-text glitch" id="warning-message"></div>
     <div class="scanlines"></div>
   </div>
 
   <script>
-    function typeText(el, text, speed = 40) {
+    function typeText(el, text, speed = 35) {
       let i = 0;
       el.innerHTML = "";
       (function type() {
@@ -47,32 +47,36 @@
     }
 
     function showOverlay(message) {
-      document.getElementById("warning-message").innerHTML =
-        message.replace(/\n/g, "<br>");
-      document.getElementById("warning-overlay").style.display = "flex";
+      const overlay = document.getElementById("warning-overlay");
+      const msg = document.getElementById("warning-message");
+      msg.innerHTML = message.replace(/\n/g, "<br>");
+      overlay.style.display = "flex";
     }
 
     function updateHUD(callsign, rank) {
-      const hud = document.getElementById("operator-hud");
       document.getElementById("hud-callsign").textContent = "CALLSIGN: " + callsign;
       document.getElementById("hud-rank").textContent = "RANK: " + rank;
-      hud.style.display = "block";
+      document.getElementById("operator-hud").style.display = "block";
     }
 
     function hideHUD() {
       document.getElementById("operator-hud").style.display = "none";
     }
 
+    function lockInputs() {
+      document.getElementById("callsign").disabled = true;
+      document.getElementById("accesskey").disabled = true;
+    }
+
     function checkAccess() {
-      const callsignInput = document.getElementById("callsign");
-      const keyInput = document.getElementById("accesskey");
-
-      const callsign = callsignInput.value.trim().toUpperCase();
-      const key = keyInput.value.trim().toUpperCase();
-
+      const callsign = document.getElementById("callsign").value.trim().toUpperCase();
+      const key = document.getElementById("accesskey").value.trim().toUpperCase();
       const terminalText = document.getElementById("terminal-text");
 
-      const validOperators = ["REDLINE", "SERAPH", "GARUDA", "HARUNA"];
+      hideHUD();
+      sessionStorage.clear();
+
+      const operators = ["REDLINE", "SERAPH", "GARUDA", "HARUNA"];
       const ranks = {
         REDLINE: "OPERATOR ELITE",
         SERAPH: "OPERATOR ALPHA",
@@ -80,17 +84,12 @@
         HARUNA: "OPERATOR CHARLIE"
       };
 
-      hideHUD();
-      sessionStorage.clear();
-
-      // ===== LABORATORY =====
+      /* ===== LABORATORY ===== */
       if (key === "LABORATORY") {
 
-        if (!validOperators.includes(callsign)) {
-          callsignInput.disabled = true;
-          keyInput.disabled = true;
-
-          typeText(terminalText, "SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED");
+        if (!operators.includes(callsign)) {
+          lockInputs();
+          typeText(terminalText, "SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR");
           setTimeout(() => {
             showOverlay("WRONG CALLSIGN\nACCESS UNAUTHORIZED\nSERVER SHUTDOWN");
           }, 600);
@@ -104,44 +103,41 @@
         updateHUD(callsign, ranks[callsign]);
         typeText(terminalText, "ACCESS GRANTED...");
 
-        setTimeout(() => window.location.href = "database.html", 1200);
+        setTimeout(() => location.href = "database.html", 1200);
         return;
       }
 
-      // ===== BLACKSITE (REDLINE ONLY) =====
+      /* ===== BLACKSITE ===== */
       if (key === "BLACKSITE") {
 
         if (callsign !== "REDLINE") {
-          callsignInput.disabled = true;
-          keyInput.disabled = true;
-
-          typeText(terminalText, "SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED");
+          lockInputs();
+          typeText(terminalText, "CRITICAL ERROR...\nIDENTITY MISMATCH");
           setTimeout(() => {
-            showOverlay("BLACKSITE ACCESS DENIED\nCLEARANCE INSUFFICIENT");
+            showOverlay("IF YOU'RE NOT REDLINE\nYOU'LL BE EXECUTED");
           }, 600);
           return;
         }
 
-        sessionStorage.setItem("callsign", callsign);
-        sessionStorage.setItem("rank", ranks[callsign]);
+        // REDLINE ONLY
+        sessionStorage.setItem("callsign", "REDLINE");
+        sessionStorage.setItem("rank", ranks.REDLINE);
         sessionStorage.setItem("clearance", "BLACKSITE");
 
-        updateHUD(callsign, ranks[callsign]);
-
+        updateHUD("REDLINE", ranks.REDLINE);
         typeText(terminalText, "BLACKSITE ACCESS CONFIRMED...\nSYSTEM LOCKDOWN");
 
         setTimeout(() => {
-          hideHUD();
           showOverlay("BLACKSITE MODE\nLOCKDOWN IN PROGRESS");
         }, 600);
 
-        setTimeout(() => window.location.href = "private.html", 2000);
+        setTimeout(() => location.href = "private.html", 2000);
         return;
       }
 
-      // ===== WRONG PASSWORD =====
+      /* ===== WRONG PASSWORD ===== */
       typeText(terminalText, "ACCESS DENIED...");
-      keyInput.value = "";
+      document.getElementById("accesskey").value = "";
     }
 
     hideHUD();
