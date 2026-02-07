@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AQUILA ACCESS TERMINAL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="terminal">
+    <h1 id="terminal-title">AQUILA PMC</h1>
+    <p id="terminal-text">SECURE INTERNAL SYSTEM...</p>
+
+    <input type="text" id="callsign" placeholder="CALLSIGN">
+    <input type="password" id="accesskey" placeholder="ACCESS KEY">
+
+    <button class="btn" onclick="checkAccess()">ENTER</button>
+
+    <p class="warning">
+      SYSTEM OVERSIGHT: SA-09 “REDLINE”<br>
+      UNAUTHORIZED ACCESS WILL BE LOGGED
+    </p>
+  </div>
+
+  <script>
+    function typeText(element, text, speed = 40) {
+      let i = 0;
+      element.innerHTML = '';
+      function type() {
+        if(i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    function checkAccess() {
+      const callsign = document.getElementById('callsign').value;
+      const key = document.getElementById('accesskey').value;
+
+      if(key === "REDLINE") {
+        typeText(document.getElementById('terminal-text'), 'ACCESS GRANTED...');
+        setTimeout(() => { window.location.href = "database.html"; }, 1200);
+      } else {
+        typeText(document.getElementById('terminal-text'), 'ACCESS DENIED...');
+      }
+    }
+
+    typeText(document.getElementById('terminal-text'), "SECURE INTERNAL SYSTEM...");
+  </script>
+</body>
+</html>
