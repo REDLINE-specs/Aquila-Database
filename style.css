@@ -1,24 +1,37 @@
+/* ===== BASE ===== */
 body {
   background-color: #040704;
   color: #00ff88;
   font-family: monospace;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
+/* ===== TERMINAL ===== */
 .terminal {
   border: 1px solid #00ff88;
   padding: 20px;
   width: 92%;
   max-width: 420px;
+  background: black;
 }
 
-h1, h2 { color: #00ffaa; }
+h1 {
+  color: #00ffaa;
+  margin-top: 0;
+  letter-spacing: 1px;
+}
 
+#terminal-text {
+  min-height: 48px;
+  white-space: pre-line;
+}
+
+/* ===== INPUTS ===== */
 input {
   width: 100%;
   background: black;
@@ -26,88 +39,108 @@ input {
   border: 1px solid #00ff88;
   padding: 8px;
   margin: 8px 0;
+  font-family: monospace;
 }
 
+input:disabled {
+  opacity: 0.5;
+}
+
+/* ===== BUTTON ===== */
 .btn {
-  display: block;
-  text-align: center;
+  width: 100%;
   padding: 10px;
   margin-top: 10px;
   border: 1px solid #00ff88;
+  background: transparent;
   color: #00ff88;
-  text-decoration: none;
   cursor: pointer;
+  font-family: monospace;
 }
 
-.btn:hover { background: #00ff88; color: #040704; }
+.btn:hover {
+  background: #00ff88;
+  color: #040704;
+}
 
-.warning { color: #ff4444; font-size: 12px; margin-top: 15px; }
+/* ===== TERMINAL WARNING TEXT ===== */
+.warning {
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: 15px;
+  line-height: 1.4;
+}
 
-.flag-green { color: #00ff88; }
-.flag-yellow { color: #ffee55; }
-.flag-red { color: #ff4444; }
+/* ===== HUD ===== */
+#operator-hud {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background: black;
+  border: 1px solid #00ff88;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #00ff88;
+  display: none;
+  z-index: 5000;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+}
 
-.status-active { color: #00ff88; }
-.status-mia { color: #ffee55; }
-.status-kia { color: #ff4444; }
+#operator-hud p {
+  margin: 2px 0;
+  letter-spacing: 0.5px;
+}
 
-.footer { margin-top: 20px; font-size: 11px; color: #888; }
-
-/* ===== WARNING OVERLAY - CRT GLITCH VERSION ===== */
+/* ===== WARNING OVERLAY ===== */
 #warning-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background: black;
-  display: none; /* hidden by default */
-  align-items: center;
+  display: none;
   justify-content: center;
-  flex-direction: column;
+  align-items: center;
   z-index: 9999;
   overflow: hidden;
 }
 
+/* ===== WARNING TEXT ===== */
 .warning-text {
-  color: red;
-  font-size: 3rem;
+  color: #ff0000;
+  font-size: 2.6rem;
   font-weight: bold;
   text-align: center;
   letter-spacing: 3px;
-  text-transform: uppercase;
-  animation: glitch 0.2s infinite;
-  position: relative;
+  animation: pulse 0.6s infinite alternate;
+  z-index: 2;
 }
 
-/* CRT scanlines effect */
+/* ===== PULSE ANIMATION ===== */
+@keyframes pulse {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* ===== SCANLINES ===== */
 .scanlines {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(255,255,255,0.05),
-    rgba(255,255,255,0.05) 1px,
-    transparent 1px,
-    transparent 2px
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.03) 1px,
+    transparent 2px,
+    transparent 4px
   );
   pointer-events: none;
+  z-index: 1;
 }
 
-/* Glitch animation - random horizontal shifts */
-@keyframes glitch {
-  0% { transform: translate(0,0); opacity:1; }
-  10% { transform: translate(-2px,1px); opacity:0.9; }
-  20% { transform: translate(2px,-1px); opacity:1; }
-  30% { transform: translate(-1px,2px); opacity:0.95; }
-  40% { transform: translate(1px,-2px); opacity:1; }
-  50% { transform: translate(-2px,1px); opacity:0.9; }
-  60% { transform: translate(2px,-1px); opacity:1; }
-  70% { transform: translate(-1px,2px); opacity:0.95; }
-  80% { transform: translate(1px,-2px); opacity:1; }
-  90% { transform: translate(-2px,1px); opacity:0.9; }
-  100% { transform: translate(0,0); opacity:1; }
+/* ===== OPTIONAL GLITCH FEEL ===== */
+.warning-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 0;
+  color: rgba(255, 0, 0, 0.5);
+  overflow: hidden;
 }
