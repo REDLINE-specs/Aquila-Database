@@ -62,8 +62,9 @@
         );
 
         setTimeout(() => {
-          alert("IF YOU'RE NOT REDLINE, YOU WILL BE EXECUTED");
-        }, 700);
+  document.getElementById('warning-overlay').style.display = 'flex';
+}, 600);
+
 
         setTimeout(() => {
           window.location.href = "private.html";
@@ -88,5 +89,11 @@
       "SECURE INTERNAL SYSTEM..."
     );
   </script>
+  <div id="warning-overlay">
+  <div class="warning-text">
+    IF YOU'RE NOT REDLINE<br>
+    YOU WILL BE EXECUTED
+  </div>
+</div>
 </body>
 </html>
