@@ -52,3 +52,31 @@ input {
 .status-kia { color: #ff4444; }
 
 .footer { margin-top: 20px; font-size: 11px; color: #888; }
+
+#warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.warning-text {
+  color: red;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 3px;
+  animation: pulse 0.6s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
