@@ -39,12 +39,44 @@
       const key = document.getElementById('accesskey').value;
 
       
-      if(key === "LABORATORY") {
-        typeText(document.getElementById('terminal-text'), 'ACCESS GRANTED...');
-        setTimeout(() => { window.location.href = "database.html"; }, 1200);
-      } else {
-        typeText(document.getElementById('terminal-text'), 'ACCESS DENIED...');
-      }
+      if (key === "LABORATORY") {
+
+  typeText(
+    document.getElementById('terminal-text'),
+    'ACCESS GRANTED...'
+  );
+
+  setTimeout(() => {
+    window.location.href = "database.html";
+  }, 1200);
+
+} else if (key === "BLACKSITE") {
+
+  const input = document.getElementById('terminal-input');
+  input.disabled = true;
+
+  typeText(
+    document.getElementById('terminal-text'),
+    'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...'
+  );
+
+  setTimeout(() => {
+    alert("IF YOU'RE NOT REDLINE, YOU WILL BE EXECUTED");
+  }, 700);
+
+  setTimeout(() => {
+    window.location.href = "private.html";
+  }, 1500);
+
+} else {
+
+  typeText(
+    document.getElementById('terminal-text'),
+    'ACCESS DENIED...'
+  );
+
+}
+
     }
 
     typeText(document.getElementById('terminal-text'), "SECURE INTERNAL SYSTEM...");
