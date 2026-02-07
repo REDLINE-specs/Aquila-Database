@@ -25,7 +25,7 @@
       let i = 0;
       element.innerHTML = '';
       function type() {
-        if(i < text.length) {
+        if (i < text.length) {
           element.innerHTML += text.charAt(i);
           i++;
           setTimeout(type, speed);
@@ -36,50 +36,57 @@
 
     function checkAccess() {
       const callsign = document.getElementById('callsign').value;
-      const key = document.getElementById('accesskey').value;
+      const input = document.getElementById('accesskey');
+      const key = input.value.trim().toUpperCase();
 
-      
       if (key === "LABORATORY") {
 
-  typeText(
-    document.getElementById('terminal-text'),
-    'ACCESS GRANTED...'
-  );
+        typeText(
+          document.getElementById('terminal-text'),
+          'ACCESS GRANTED...'
+        );
 
-  setTimeout(() => {
-    window.location.href = "database.html";
-  }, 1200);
+        setTimeout(() => {
+          window.location.href = "database.html";
+        }, 1200);
 
-} else if (key === "BLACKSITE") {
+        return;
 
-  const input = document.getElementById('terminal-input');
-  input.disabled = true;
+      } else if (key === "BLACKSITE") {
 
-  typeText(
-    document.getElementById('terminal-text'),
-    'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...'
-  );
+        input.disabled = true;
 
-  setTimeout(() => {
-    alert("IF YOU'RE NOT REDLINE, YOU WILL BE EXECUTED");
-  }, 700);
+        typeText(
+          document.getElementById('terminal-text'),
+          'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...'
+        );
 
-  setTimeout(() => {
-    window.location.href = "private.html";
-  }, 1500);
+        setTimeout(() => {
+          alert("IF YOU'RE NOT REDLINE, YOU WILL BE EXECUTED");
+        }, 700);
 
-} else {
+        setTimeout(() => {
+          window.location.href = "private.html";
+        }, 1500);
 
-  typeText(
-    document.getElementById('terminal-text'),
-    'ACCESS DENIED...'
-  );
+        return;
 
-}
+      } else {
 
+        typeText(
+          document.getElementById('terminal-text'),
+          'ACCESS DENIED...'
+        );
+
+        input.value = "";
+
+      }
     }
 
-    typeText(document.getElementById('terminal-text'), "SECURE INTERNAL SYSTEM...");
+    typeText(
+      document.getElementById('terminal-text'),
+      "SECURE INTERNAL SYSTEM..."
+    );
   </script>
 </body>
 </html>
