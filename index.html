@@ -45,33 +45,73 @@
     }
 
     function checkAccess() {
-      const input = document.getElementById('accesskey');
-      const key = input.value.trim().toUpperCase();
+      const callsignInput = document.getElementById('callsign');
+      const keyInput = document.getElementById('accesskey');
 
+      const callsign = callsignInput.value.trim().toUpperCase();
+      const key = keyInput.value.trim().toUpperCase();
+
+      const validOperators = ["REDLINE", "SERAPH", "GARUDA"];
+      const terminalText = document.getElementById('terminal-text');
+      const overlay = document.getElementById('warning-overlay');
+
+      // ===== LABORATORY =====
       if (key === "LABORATORY") {
 
-        typeText(
-          document.getElementById('terminal-text'),
-          'ACCESS GRANTED...'
-        );
+        if (!validOperators.includes(callsign)) {
+          callsignInput.disabled = true;
+          keyInput.disabled = true;
+
+          typeText(
+            terminalText,
+            'SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED'
+          );
+
+          setTimeout(() => {
+            overlay.style.display = 'flex';
+          }, 600);
+
+          return;
+        }
+
+        typeText(terminalText, 'ACCESS GRANTED...');
 
         setTimeout(() => {
           window.location.href = "database.html";
         }, 1200);
 
         return;
+      }
 
-      } else if (key === "BLACKSITE") {
+      // ===== BLACKSITE =====
+      if (key === "BLACKSITE") {
 
-        input.disabled = true;
+        if (!validOperators.includes(callsign)) {
+          callsignInput.disabled = true;
+          keyInput.disabled = true;
+
+          typeText(
+            terminalText,
+            'SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED'
+          );
+
+          setTimeout(() => {
+            overlay.style.display = 'flex';
+          }, 600);
+
+          return;
+        }
+
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
 
         typeText(
-          document.getElementById('terminal-text'),
+          terminalText,
           'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...'
         );
 
         setTimeout(() => {
-          document.getElementById('warning-overlay').style.display = 'flex';
+          overlay.style.display = 'flex';
         }, 600);
 
         setTimeout(() => {
@@ -79,16 +119,11 @@
         }, 2000);
 
         return;
-
-      } else {
-
-        typeText(
-          document.getElementById('terminal-text'),
-          'ACCESS DENIED...'
-        );
-
-        input.value = '';
       }
+
+      // ===== WRONG PASSWORD =====
+      typeText(terminalText, 'ACCESS DENIED...');
+      keyInput.value = '';
     }
 
     typeText(
