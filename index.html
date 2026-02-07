@@ -38,6 +38,10 @@
       const callsign = document.getElementById('callsign').value;
       const key = document.getElementById('accesskey').value;
 
+      if(key === "REDACTED") {
+        typeText(document.getElementById('terminal-text'), 'ACCESS GRANTED...');
+        setTimeout(() => { window.location.href = "private.html"; }, 1200);
+      } else {
       if(key === "LABORATORY") {
         typeText(document.getElementById('terminal-text'), 'ACCESS GRANTED...');
         setTimeout(() => { window.location.href = "database.html"; }, 1200);
