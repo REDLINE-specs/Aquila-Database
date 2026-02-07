@@ -4,7 +4,7 @@
   <title>AQUILA ACCESS TERMINAL</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="terminal-body">
 
   <!-- TERMINAL -->
   <div class="terminal">
@@ -30,11 +30,7 @@
 
   <!-- WARNING OVERLAY -->
   <div id="warning-overlay">
-    <div class="warning-text">
-      WRONG CALLSIGN<br>
-      ACCESS UNAUTHORIZED<br>
-      SERVER SHUTDOWN
-    </div>
+    <div class="warning-text" id="warning-message"></div>
     <div class="scanlines"></div>
   </div>
 
@@ -48,6 +44,12 @@
           setTimeout(type, speed);
         }
       })();
+    }
+
+    function showOverlay(message) {
+      document.getElementById("warning-message").innerHTML =
+        message.replace(/\n/g, "<br>");
+      document.getElementById("warning-overlay").style.display = "flex";
     }
 
     function updateHUD(callsign, rank) {
@@ -69,17 +71,8 @@
       const key = keyInput.value.trim().toUpperCase();
 
       const terminalText = document.getElementById("terminal-text");
-      const overlay = document.getElementById("warning-overlay");
 
-      // ✅ AUTHORIZED OPERATORS (UPDATED)
-      const validOperators = [
-        "REDLINE",
-        "SERAPH",
-        "GARUDA",
-        "HARUNA"
-      ];
-
-      // ✅ RANKS (UPDATED)
+      const validOperators = ["REDLINE", "SERAPH", "GARUDA", "HARUNA"];
       const ranks = {
         REDLINE: "OPERATOR ELITE",
         SERAPH: "OPERATOR ALPHA",
@@ -97,12 +90,10 @@
           callsignInput.disabled = true;
           keyInput.disabled = true;
 
-          typeText(
-            terminalText,
-            "SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED"
-          );
-
-          setTimeout(() => overlay.style.display = "flex", 600);
+          typeText(terminalText, "SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED");
+          setTimeout(() => {
+            showOverlay("WRONG CALLSIGN\nACCESS UNAUTHORIZED\nSERVER SHUTDOWN");
+          }, 600);
           return;
         }
 
@@ -124,12 +115,10 @@
           callsignInput.disabled = true;
           keyInput.disabled = true;
 
-          typeText(
-            terminalText,
-            "SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED"
-          );
-
-          setTimeout(() => overlay.style.display = "flex", 600);
+          typeText(terminalText, "SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED");
+          setTimeout(() => {
+            showOverlay("BLACKSITE ACCESS DENIED\nCLEARANCE INSUFFICIENT");
+          }, 600);
           return;
         }
 
@@ -139,14 +128,11 @@
 
         updateHUD(callsign, ranks[callsign]);
 
-        typeText(
-          terminalText,
-          "SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE..."
-        );
+        typeText(terminalText, "BLACKSITE ACCESS CONFIRMED...\nSYSTEM LOCKDOWN");
 
         setTimeout(() => {
           hideHUD();
-          overlay.style.display = "flex";
+          showOverlay("BLACKSITE MODE\nLOCKDOWN IN PROGRESS");
         }, 600);
 
         setTimeout(() => window.location.href = "private.html", 2000);
@@ -159,10 +145,7 @@
     }
 
     hideHUD();
-    typeText(
-      document.getElementById("terminal-text"),
-      "SECURE INTERNAL SYSTEM..."
-    );
+    typeText(document.getElementById("terminal-text"), "SECURE INTERNAL SYSTEM...");
   </script>
 
 </body>
