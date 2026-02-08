@@ -1,134 +1,140 @@
-/* ===== UNIVERSAL TERMINAL STYLE ===== */
-
-/* Force all text green and monospace */
-body, html, * {
-    color: #00ff88 !important;
-    font-family: monospace !important;
-    background-color: inherit !important;
-}
+/* ===== FULL UNIVERSAL TERMINAL STYLE ===== */
 
 /* Terminal container */
 .terminal {
-    border: 1px solid #00ff88;
-    padding: 20px;
-    width: 92%;
-    max-width: 420px;
+  border: 1px solid #00ff88;
+  padding: 20px;
+  width: 92%;
+  max-width: 420px;
+  background-color: #040704;
+  font-family: monospace;
+  color: #00ff88 !important;
 }
 
-/* Headings */
-h1, h2 {
-    color: #00ffaa !important;
+/* Force all descendants of terminal to inherit terminal green */
+.terminal, 
+.terminal * {
+  color: #00ff88 !important;
+  font-family: monospace !important;
+  background-color: inherit !important;
+}
+
+/* Headings inside terminal */
+.terminal h1, .terminal h2 {
+  color: #00ffaa !important;
 }
 
 /* Inputs */
-input {
-    width: 100%;
-    background: black !important;
-    color: #00ff88 !important;
-    border: 1px solid #00ff88;
-    padding: 8px;
-    margin: 8px 0;
+.terminal input {
+  width: 100%;
+  background-color: black !important;
+  color: #00ff88 !important;
+  border: 1px solid #00ff88;
+  padding: 8px;
+  margin: 8px 0;
 }
 
 /* Buttons */
-.btn {
-    display: block;
-    text-align: center;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #00ff88;
-    color: #00ff88;
-    text-decoration: none;
-    cursor: pointer;
+.terminal .btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #00ff88;
+  color: #00ff88 !important;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.btn:hover {
-    background: #00ff88;
-    color: #040704;
+.terminal .btn:hover {
+  background: #00ff88;
+  color: #040704;
 }
 
 /* Flags & Status */
-.warning { color: #ff4444 !important; font-size: 12px; margin-top: 15px; }
+.terminal .flag-green { color: #00ff88 !important; }
+.terminal .flag-yellow { color: #ffee55 !important; }
+.terminal .flag-red { color: #ff4444 !important; }
 
-.flag-green { color: #00ff88 !important; }
-.flag-yellow { color: #ffee55 !important; }
-.flag-red { color: #ff4444 !important; }
+.terminal .status-active { color: #00ff88 !important; }
+.terminal .status-mia { color: #ffee55 !important; }
+.terminal .status-kia { color: #ff4444 !important; }
 
-.status-active { color: #00ff88 !important; }
-.status-mia { color: #ffee55 !important; }
-.status-kia { color: #ff4444 !important; }
+/* Footer */
+.terminal .footer { margin-top: 20px; font-size: 11px; color: #888; }
 
-.footer { margin-top: 20px; font-size: 11px; color: #888; }
+/* Preformatted text / code blocks */
+.terminal pre, 
+.terminal code {
+  color: #00ff88 !important;
+  background-color: black !important;
+  font-family: monospace !important;
+}
 
 /* ===== WARNING OVERLAY ===== */
 #warning-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: black !important;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index: 9999;
-    overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+  font-family: monospace;
+  color: #00ff88 !important;
 }
 
-/* All overlay text inherits terminal style */
+/* All overlay text inherits green unless overridden */
 #warning-overlay, #warning-overlay * {
-    color: #00ff88 !important;
-    font-family: monospace !important;
+  color: #00ff88 !important;
+  font-family: monospace !important;
 }
 
 /* Warning text exception */
 .warning-text {
-    color: red !important;
-    font-size: 3rem;
-    font-weight: bold;
-    text-align: center;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    animation: glitch 0.2s infinite;
-    position: relative;
+  color: red !important;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: glitch 0.2s infinite;
+  position: relative;
 }
 
 /* CRT scanlines */
 .scanlines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.05),
-        rgba(255,255,255,0.05) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
 }
 
 /* Glitch animation */
 @keyframes glitch {
-    0% { transform: translate(0,0); opacity:1; }
-    10% { transform: translate(-2px,1px); opacity:0.9; }
-    20% { transform: translate(2px,-1px); opacity:1; }
-    30% { transform: translate(-1px,2px); opacity:0.95; }
-    40% { transform: translate(1px,-2px); opacity:1; }
-    50% { transform: translate(-2px,1px); opacity:0.9; }
-    60% { transform: translate(2px,-1px); opacity:1; }
-    70% { transform: translate(-1px,2px); opacity:0.95; }
-    80% { transform: translate(1px,-2px); opacity:1; }
-    90% { transform: translate(-2px,1px); opacity:0.9; }
-    100% { transform: translate(0,0); opacity:1; }
-}
-
-/* Preformatted text / code blocks */
-pre, code {
-    color: #00ff88 !important;
-    background-color: black !important;
-    font-family: monospace !important;
+  0% { transform: translate(0,0); opacity:1; }
+  10% { transform: translate(-2px,1px); opacity:0.9; }
+  20% { transform: translate(2px,-1px); opacity:1; }
+  30% { transform: translate(-1px,2px); opacity:0.95; }
+  40% { transform: translate(1px,-2px); opacity:1; }
+  50% { transform: translate(-2px,1px); opacity:0.9; }
+  60% { transform: translate(2px,-1px); opacity:1; }
+  70% { transform: translate(-1px,2px); opacity:0.95; }
+  80% { transform: translate(1px,-2px); opacity:1; }
+  90% { transform: translate(-2px,1px); opacity:0.9; }
+  100% { transform: translate(0,0); opacity:1; }
 }
