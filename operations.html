@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CONFIRMED OPERATIONS — SERAPH</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="terminal">
+  <h2 class="flag-red">CONFIRMED OPERATIONS</h2>
+
+  <ul>
+    <li>OP RED VEIL — Urban Counter-Insurgency</li>
+    <li>OP BLACK ANVIL — Executive Extraction</li>
+    <li>OP SILENT CROWN — Internal Security Action</li>
+    <li>OP IRON PROXY — DS Asset Neutralization</li>
+  </ul>
+
+  <a class="btn" href="profiles-seraph-exec.html">
+    Return to Operator Profile
+  </a>
+</div>
+
+<script>
+if (sessionStorage.getItem("auth") !== "SERAPH_EXECUTIVE") {
+  document.body.innerHTML =
+    "<h1 style='color:red;text-align:center'>ACCESS DENIED</h1>";
+}
+</script>
+
+</body>
+</html>
 
