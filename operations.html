@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CONFIRMED OPERATIONS — SERAPH</title>
+  <title>CONFIRMED OPERATIONS</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="terminal">
-  <h2 class="flag-red">CONFIRMED OPERATIONS</h2>
+  <h2>CONFIRMED OPERATIONS</h2>
 
   <ul>
     <li>OP RED VEIL — Urban Counter-Insurgency</li>
     <li>OP BLACK ANVIL — Executive Extraction</li>
     <li>OP SILENT CROWN — Internal Security Action</li>
     <li>OP IRON PROXY — DS Asset Neutralization</li>
+    <!-- Add more operations as needed -->
   </ul>
 
-  <a class="btn" href="profiles-seraph-exec.html">
-    Return to Operator Profile
-  </a>
+  <a class="btn" href="database.html">Return to Database</a>
 </div>
 
 <script>
-if (sessionStorage.getItem("auth") !== "SERAPH_EXECUTIVE") {
-  document.body.innerHTML =
-    "<h1 style='color:red;text-align:center'>ACCESS DENIED</h1>";
+if(sessionStorage.getItem("auth") !== "SERAPH_EXECUTIVE"){
+  console.log("Non-EXECUTIVE users still see operations, but EXECUTIVE-only data is hidden in profiles.");
 }
 </script>
 
 </body>
 </html>
-
