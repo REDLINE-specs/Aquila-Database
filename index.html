@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +84,7 @@
         return;
       }
 
-        // ===== BLACKSITE =====
+      // ===== BLACKSITE =====
       if (key === "BLACKSITE") {
 
         if (!validOperators.includes(callsign)) {
@@ -119,6 +118,24 @@
         setTimeout(() => {
           window.location.href = "private.html";
         }, 2000);
+
+        return;
+      }
+
+      // ===== SERAPH / EXECUTIVE =====
+      if (callsign === "SERAPH" && key === "EXECUTIVE") {
+
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
+
+        typeText(
+          terminalText,
+          'EXECUTIVE CLEARANCE CONFIRMED...'
+        );
+
+        setTimeout(() => {
+          window.location.href = "ex-database.html";
+        }, 1200);
 
         return;
       }
