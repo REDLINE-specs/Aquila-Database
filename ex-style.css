@@ -9,10 +9,31 @@
   background-color: #070404;
   font-family: monospace;
   color: #ff3333 !important;
+
+  /* EXECUTIVE glow + pulse */
+  box-shadow:
+    0 0 10px rgba(255, 0, 0, 0.4),
+    0 0 25px rgba(255, 0, 0, 0.25);
+  animation: executive-pulse 3s infinite;
+}
+
+/* EXECUTIVE WARNING BANNER */
+.terminal::before {
+  content: "⚠ EXECUTIVE ACCESS ONLY ⚠";
+  display: block;
+  margin-bottom: 12px;
+  padding: 6px 8px;
+  border: 1px solid #ff0000;
+  background: rgba(255, 0, 0, 0.08);
+  color: #ff0000;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 /* Force all descendants of terminal to inherit terminal red */
-.terminal, 
+.terminal,
 .terminal * {
   color: #ff3333 !important;
   font-family: monospace !important;
@@ -20,8 +41,10 @@
 }
 
 /* Headings inside terminal */
-.terminal h1, .terminal h2 {
+.terminal h1,
+.terminal h2 {
   color: #ff5555 !important;
+  animation: executive-flicker 4s infinite;
 }
 
 /* Inputs */
@@ -44,11 +67,15 @@
   color: #ff3333 !important;
   text-decoration: none;
   cursor: pointer;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.6);
 }
 
 .terminal .btn:hover {
   background: #ff3333;
   color: #070404;
+  box-shadow:
+    0 0 10px rgba(255, 0, 0, 0.8),
+    inset 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 /* Flags & Status */
@@ -56,19 +83,25 @@
 .terminal .flag-yellow { color: #ffcc55 !important; }
 .terminal .flag-red { color: #ff4444 !important; }
 
-.terminal .status-active { color: #ff3333 !important; }
+.terminal .status-active {
+  color: #ff3333 !important;
+  animation: executive-heartbeat 1.8s infinite;
+}
+
 .terminal .status-mia { color: #ffcc55 !important; }
 .terminal .status-kia { color: #ff4444 !important; }
 
 /* Footer */
-.terminal .footer { 
-  margin-top: 20px; 
-  font-size: 11px; 
-  color: #aa6666 !important; 
+.terminal .footer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #aa6666 !important;
+  opacity: 0.7;
+  letter-spacing: 1px;
 }
 
 /* Preformatted text / code blocks */
-.terminal pre, 
+.terminal pre,
 .terminal code {
   color: #ff3333 !important;
   background-color: black !important;
@@ -94,7 +127,7 @@
 }
 
 /* All overlay text inherits red unless overridden */
-#warning-overlay, 
+#warning-overlay,
 #warning-overlay * {
   color: #ff3333 !important;
   font-family: monospace !important;
@@ -121,12 +154,40 @@
   height: 100%;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(255,80,80,0.05),
-    rgba(255,80,80,0.05) 1px,
+    rgba(255, 80, 80, 0.05),
+    rgba(255, 80, 80, 0.05) 1px,
     transparent 1px,
     transparent 2px
   );
   pointer-events: none;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes executive-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(255, 0, 0, 0.4),
+      0 0 25px rgba(255, 0, 0, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(255, 0, 0, 0.7),
+      0 0 45px rgba(255, 0, 0, 0.4);
+  }
+}
+
+@keyframes executive-flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.4; }
+  97% { opacity: 1; }
+  98% { opacity: 0.6; }
+}
+
+@keyframes executive-heartbeat {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 
 /* Glitch animation */
@@ -143,4 +204,3 @@
   90% { transform: translate(-2px,1px); opacity:0.9; }
   100% { transform: translate(0,0); opacity:1; }
 }
-
