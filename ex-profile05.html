@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OPERATOR PROFILE - SERAPH</title>
+  <!-- CSS is in the same folder, so no ../ needed -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="terminal">
+    <h2>CALLSIGN: SERAPH</h2>
+
+    <p>Nationality: [INSERT]</p>
+    <p>Former Occupation: [INSERT]</p>
+    <p>Former Affiliation to DS: [INSERT]</p>
+    <p>Background Summary:</p>
+    <p>[INSERT DETAILS]</p>
+
+    <p>Date of Induction: [INSERT]</p>
+    <p>Status: <span class="status-active">ACTIVE</span></p>
+    <p>Psych Evaluation: <span class="flag-green">STABLE</span></p>
+    <p>Ethics Status: <span class="flag-yellow">UNDER REVIEW</span></p>
+
+    <p>Ethics Notes (Visible):</p>
+    <p>[INSERT NOTES]</p>
+
+    <p class="warning">PROFILE MONITORED BY SA-09 “REDLINE”</p>
+
+    <!-- RETURN button points to database.html in the same folder -->
+    <a class="btn" href="database.html">RETURN TO DATABASE</a>
+    <a class="btn" href="operations01.html">OPERATIONS</a>
+    <a class="btn" href="interview01.html">INTERVIEW</a>
+
+    <div class="footer">Aquila PMC — Ethics Control Authority: SA-09 “REDLINE”</div>
+  </div>
+
+  <script>
+    const paragraphs = document.querySelectorAll('p');
+    paragraphs.forEach(p => {
+      const text = p.innerText;
+      p.innerText = '';
+      let i = 0;
+      function type() {
+        if(i < text.length) {
+          p.innerText += text.charAt(i);
+          i++;
+          setTimeout(type, 15);
+        }
+      }
+      type();
+    });
+  </script>
+</body>
+</html>
