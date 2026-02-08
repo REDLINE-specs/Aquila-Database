@@ -10,6 +10,7 @@
       padding: 10px;
       width: 40%;
       min-height: 300px;
+      display: none; /* hidden by default */
     }
     .watchlist h3 { color: #ff4444; }
     .watch-item {
@@ -22,31 +23,33 @@
 <body>
 
 <div class="terminal db-wrapper">
+
   <div style="width:60%">
     <h2>OPERATOR DATABASE</h2>
 
-    <p><a class="btn" href="profiles-seraph.html">CALLSIGN: SERAPH <span class="flag-red">[EXECUTIVE]</span></a></p>
-    <p><a class="btn" href="profiles-operator02.html">CALLSIGN: GARUDA <span class="status-mia">[MIA]</span></a></p>
-    <p><a class="btn" href="profiles-operator03.html">CALLSIGN: HARUNA <span class="status-kia">[KIA]</span></a></p>
-    <!-- ... keep the rest of your operator links the same ... -->
+    <p draggable="true" ondragstart="drag(event)">
+      <a class="btn" href="profiles-operator01.html">CALLSIGN: SERAPH <span class="status-active">[ACTIVE]</span></a>
+    </p>
+    <p draggable="true" ondragstart="drag(event)">
+      <a class="btn" href="profiles-operator02.html">CALLSIGN: GARUDA <span class="status-mia">[MIA]</span></a>
+    </p>
+    <p draggable="true" ondragstart="drag(event)">
+      <a class="btn" href="profiles-operator03.html">CALLSIGN: HARUNA <span class="status-kia">[KIA]</span></a>
+    </p>
+    <!-- keep all other operators the same -->
 
     <p class="warning">ETHICS & PERSONNEL OVERSIGHT ACTIVE<br>AUTHORITY: SA-09 “REDLINE”</p>
     <div class="footer">Aquila PMC Ethical System — Controlled by SA-09 “REDLINE”</div>
   </div>
 
-  <!-- WATCHLIST PANEL -->
-  <div class="watchlist" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <div id="watchlist-panel" class="watchlist" ondrop="drop(event)" ondragover="allowDrop(event)">
     <h3>OPERATOR WATCHLIST</h3>
     <div id="watch-items"></div>
   </div>
+
 </div>
 
 <script>
-if (sessionStorage.getItem("auth") !== "SERAPH_EXECUTIVE") {
-  // Only SERAPH EXECUTIVE sees watchlist properly
-  console.log("Standard operators can still use DB normally.");
-}
-
 function allowDrop(e){ e.preventDefault(); }
 function drag(e){ e.dataTransfer.setData("text", e.target.innerHTML); }
 function drop(e){
@@ -55,6 +58,11 @@ function drop(e){
   div.className = "watch-item";
   div.innerHTML = e.dataTransfer.getData("text");
   document.getElementById("watch-items").appendChild(div);
+}
+
+// Show watchlist only for SERAPH EXECUTIVE
+if(sessionStorage.getItem("auth") === "SERAPH_EXECUTIVE"){
+  document.getElementById("watchlist-panel").style.display = "block";
 }
 </script>
 
