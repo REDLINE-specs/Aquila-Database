@@ -86,6 +86,43 @@
       }
 
       // ===== BLACKSITE =====
+      if (key === "EXECUTIVE") {
+
+        if (!validOperators.includes(callsign)) {
+          callsignInput.disabled = true;
+          keyInput.disabled = true;
+
+          typeText(
+            terminalText,
+            'WELCOME SERAPH...\nUAUTHORIZED OPERATOR DETECTED'
+          );
+
+          setTimeout(() => {
+            overlay.style.display = 'flex';
+          }, 600);
+
+          return;
+        }
+
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
+
+        typeText(
+          terminalText,
+          'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...'
+        );
+
+        setTimeout(() => {
+          overlay.style.display = 'flex';
+        }, 600);
+
+        setTimeout(() => {
+          window.location.href = "private.html";
+        }, 2000);
+
+        return;
+
+        // ===== BLACKSITE =====
       if (key === "BLACKSITE") {
 
         if (!validOperators.includes(callsign)) {
