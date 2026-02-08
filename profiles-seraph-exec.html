@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OPERATOR PROFILE — SERAPH</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="terminal" style="border-color:#ff4444">
+  <h2 style="color:#ff4444">CALLSIGN: SERAPH</h2>
+
+  <p><strong>Former Occupation:</strong> Executive Field Commander</p>
+  <p><strong>Former Affiliation with DS:</strong> Strategic Assets Division</p>
+
+  <p><strong>Date of Induction:</strong> 2014-11-09</p>
+  <p><strong>Activity Status:</strong>
+    <span class="flag-red">EXECUTIVE ACTIVE</span>
+  </p>
+
+  <p><strong>Clearance Level:</strong> BLACKSITE-PLUS</p>
+
+  <a class="btn" href="database.html">Return to Database</a>
+  <a class="btn" href="operations.html">Confirmed Operations</a>
+
+  <div class="footer" style="color:#ff4444">
+    EXECUTIVE PROFILE — ACCESS LOGGED
+  </div>
+</div>
+
+<script>
+if (sessionStorage.getItem("auth") !== "SERAPH_EXECUTIVE") {
+  document.body.innerHTML =
+    "<h1 style='color:red;text-align:center'>ACCESS DENIED</h1>";
+}
+</script>
+
+</body>
+</html>
