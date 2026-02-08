@@ -1,3 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AQUILA ACCESS TERMINAL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="terminal">
+  <h1 id="terminal-title">AQUILA PMC</h1>
+  <p id="terminal-text">SECURE INTERNAL SYSTEM...</p>
+
+  <input type="text" id="callsign" placeholder="CALLSIGN">
+  <input type="password" id="accesskey" placeholder="ACCESS KEY">
+
+  <button type="button" class="btn" onclick="checkAccess()">ENTER</button>
+
+  <p class="warning">
+    SYSTEM OVERSIGHT: SA-09 “REDLINE”<br>
+    UNAUTHORIZED ACCESS WILL BE LOGGED
+  </p>
+</div>
+
+<!-- WARNING OVERLAY -->
+<div id="warning-overlay">
+  <div class="warning-text">
+    WRONG CALLSIGN<br>
+    ACCESS UNAUTHORIZED<br>
+    SERVER SHUTDOWN
+  </div>
+  <div class="scanlines"></div>
+</div>
+
+<script>
+function typeText(element, text, speed = 40) {
+  let i = 0;
+  element.innerHTML = '';
+  function type() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
 function checkAccess() {
   const callsignInput = document.getElementById('callsign');
   const keyInput = document.getElementById('accesskey');
@@ -14,12 +61,23 @@ function checkAccess() {
     if (!validOperators.includes(callsign)) {
       callsignInput.disabled = true;
       keyInput.disabled = true;
-      typeText(terminalText,'SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED');
-      setTimeout(() => { overlay.style.display = 'flex'; }, 600);
+
+      typeText(
+        terminalText,
+        'SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED'
+      );
+
+      setTimeout(() => {
+        overlay.style.display = 'flex';
+      }, 600);
       return;
     }
+
     typeText(terminalText, 'ACCESS GRANTED...');
-    setTimeout(() => { window.location.href = "database.html"; }, 1200);
+
+    setTimeout(() => {
+      window.location.href = "database.html";
+    }, 1200);
     return;
   }
 
@@ -28,15 +86,33 @@ function checkAccess() {
     if (!validOperators.includes(callsign)) {
       callsignInput.disabled = true;
       keyInput.disabled = true;
-      typeText(terminalText,'SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED');
-      setTimeout(() => { overlay.style.display = 'flex'; }, 600);
+
+      typeText(
+        terminalText,
+        'SERVER SHUTDOWN...\nUNAUTHORIZED OPERATOR DETECTED'
+      );
+
+      setTimeout(() => {
+        overlay.style.display = 'flex';
+      }, 600);
       return;
     }
+
     callsignInput.disabled = true;
     keyInput.disabled = true;
-    typeText(terminalText,'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...');
-    setTimeout(() => { overlay.style.display = 'flex'; }, 600);
-    setTimeout(() => { window.location.href = "private.html"; }, 2000);
+
+    typeText(
+      terminalText,
+      'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...'
+    );
+
+    setTimeout(() => {
+      overlay.style.display = 'flex';
+    }, 600);
+
+    setTimeout(() => {
+      window.location.href = "private.html";
+    }, 2000);
     return;
   }
 
@@ -45,10 +121,37 @@ function checkAccess() {
     if (callsign !== "SERAPH") {
       callsignInput.disabled = true;
       keyInput.disabled = true;
-      typeText(terminalText,'SERVER SHUTDOWN...\nUNAUTHORIZED EXECUTIVE ACCESS');
-      setTimeout(() => { overlay.style.display = 'flex'; }, 600);
+
+      typeText(
+        terminalText,
+        'SERVER SHUTDOWN...\nUNAUTHORIZED EXECUTIVE ACCESS'
+      );
+
+      setTimeout(() => {
+        overlay.style.display = 'flex';
+      }, 600);
       return;
     }
+
+    // Grant EXECUTIVE access
     sessionStorage.setItem("auth", "SERAPH_EXECUTIVE");
-    typeText(terminalText, 'EXECUTIVE CLEARANCE CONFIRMED...');
-    s
+    typeText(terminalText, "EXECUTIVE CLEARANCE CONFIRMED...");
+    setTimeout(() => {
+      window.location.href = "profiles-seraph.html";
+    }, 1200);
+    return;
+  }
+
+  // ===== WRONG PASSWORD =====
+  typeText(terminalText, 'ACCESS DENIED...');
+  keyInput.value = '';
+}
+
+typeText(
+  document.getElementById('terminal-text'),
+  "SECURE INTERNAL SYSTEM..."
+);
+</script>
+
+</body>
+</html>
