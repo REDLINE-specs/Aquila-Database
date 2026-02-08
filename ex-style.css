@@ -1,1 +1,146 @@
+/* ===== EXECUTIVE TERMINAL STYLE (RED) ===== */
+
+/* Terminal container */
+.terminal {
+  border: 1px solid #ff3333;
+  padding: 20px;
+  width: 92%;
+  max-width: 420px;
+  background-color: #070404;
+  font-family: monospace;
+  color: #ff3333 !important;
+}
+
+/* Force all descendants of terminal to inherit terminal red */
+.terminal, 
+.terminal * {
+  color: #ff3333 !important;
+  font-family: monospace !important;
+  background-color: inherit !important;
+}
+
+/* Headings inside terminal */
+.terminal h1, .terminal h2 {
+  color: #ff5555 !important;
+}
+
+/* Inputs */
+.terminal input {
+  width: 100%;
+  background-color: black !important;
+  color: #ff3333 !important;
+  border: 1px solid #ff3333;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+/* Buttons */
+.terminal .btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ff3333;
+  color: #ff3333 !important;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.terminal .btn:hover {
+  background: #ff3333;
+  color: #070404;
+}
+
+/* Flags & Status */
+.terminal .flag-green { color: #ff3333 !important; }
+.terminal .flag-yellow { color: #ffcc55 !important; }
+.terminal .flag-red { color: #ff4444 !important; }
+
+.terminal .status-active { color: #ff3333 !important; }
+.terminal .status-mia { color: #ffcc55 !important; }
+.terminal .status-kia { color: #ff4444 !important; }
+
+/* Footer */
+.terminal .footer { 
+  margin-top: 20px; 
+  font-size: 11px; 
+  color: #aa6666 !important; 
+}
+
+/* Preformatted text / code blocks */
+.terminal pre, 
+.terminal code {
+  color: #ff3333 !important;
+  background-color: black !important;
+  font-family: monospace !important;
+}
+
+/* ===== WARNING OVERLAY ===== */
+#warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+  font-family: monospace;
+  color: #ff3333 !important;
+}
+
+/* All overlay text inherits red unless overridden */
+#warning-overlay, 
+#warning-overlay * {
+  color: #ff3333 !important;
+  font-family: monospace !important;
+}
+
+/* Warning text exception */
+.warning-text {
+  color: #ff0000 !important;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: glitch 0.2s infinite;
+  position: relative;
+}
+
+/* CRT scanlines */
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,80,80,0.05),
+    rgba(255,80,80,0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+}
+
+/* Glitch animation */
+@keyframes glitch {
+  0% { transform: translate(0,0); opacity:1; }
+  10% { transform: translate(-2px,1px); opacity:0.9; }
+  20% { transform: translate(2px,-1px); opacity:1; }
+  30% { transform: translate(-1px,2px); opacity:0.95; }
+  40% { transform: translate(1px,-2px); opacity:1; }
+  50% { transform: translate(-2px,1px); opacity:0.9; }
+  60% { transform: translate(2px,-1px); opacity:1; }
+  70% { transform: translate(-1px,2px); opacity:0.95; }
+  80% { transform: translate(1px,-2px); opacity:1; }
+  90% { transform: translate(-2px,1px); opacity:0.9; }
+  100% { transform: translate(0,0); opacity:1; }
+}
 
