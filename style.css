@@ -1,5 +1,4 @@
-The css code
-
+/* ===== BASE STYLES ===== */
 body {
   background-color: #040704;
   color: #00ff88;
@@ -12,6 +11,14 @@ body {
   min-height: 100vh;
 }
 
+/* Force terminal green text everywhere inside terminal */
+.terminal,
+.terminal * {
+  color: #00ff88;
+  font-family: monospace;
+}
+
+/* Terminal container */
 .terminal {
   border: 1px solid #00ff88;
   padding: 20px;
@@ -19,8 +26,12 @@ body {
   max-width: 420px;
 }
 
-h1, h2 { color: #00ffaa; }
+/* Headings */
+h1, h2 {
+  color: #00ffaa;
+}
 
+/* Inputs */
 input {
   width: 100%;
   background: black;
@@ -30,6 +41,7 @@ input {
   margin: 8px 0;
 }
 
+/* Buttons */
 .btn {
   display: block;
   text-align: center;
@@ -41,8 +53,12 @@ input {
   cursor: pointer;
 }
 
-.btn:hover { background: #00ff88; color: #040704; }
+.btn:hover {
+  background: #00ff88;
+  color: #040704;
+}
 
+/* Flags & Status */
 .warning { color: #ff4444; font-size: 12px; margin-top: 15px; }
 
 .flag-green { color: #00ff88; }
@@ -55,7 +71,7 @@ input {
 
 .footer { margin-top: 20px; font-size: 11px; color: #888; }
 
-/* ===== WARNING OVERLAY - CRT GLITCH VERSION ===== */
+/* ===== WARNING OVERLAY ===== */
 #warning-overlay {
   position: fixed;
   top: 0;
@@ -71,6 +87,14 @@ input {
   overflow: hidden;
 }
 
+/* Force overlay text green unless overridden */
+#warning-overlay,
+#warning-overlay * {
+  color: #00ff88;
+  font-family: monospace;
+}
+
+/* Warning text exception */
 .warning-text {
   color: red;
   font-size: 3rem;
@@ -82,7 +106,7 @@ input {
   position: relative;
 }
 
-/* CRT scanlines effect */
+/* CRT scanlines */
 .scanlines {
   position: absolute;
   top: 0;
@@ -99,7 +123,7 @@ input {
   pointer-events: none;
 }
 
-/* Glitch animation - random horizontal shifts */
+/* Glitch animation */
 @keyframes glitch {
   0% { transform: translate(0,0); opacity:1; }
   10% { transform: translate(-2px,1px); opacity:0.9; }
