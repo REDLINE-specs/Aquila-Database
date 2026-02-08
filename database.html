@@ -4,10 +4,7 @@
   <title>AQUILA OPERATOR DATABASE</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .db-wrapper {
-      display: flex;
-      gap: 15px;
-    }
+    .db-wrapper { display: flex; gap: 15px; }
     .watchlist {
       border: 1px solid #ff4444;
       padding: 10px;
@@ -25,27 +22,41 @@
 <body>
 
 <div class="terminal db-wrapper">
-
   <div style="width:60%">
     <h2>OPERATOR DATABASE</h2>
 
-    <!-- EXECUTIVE SERAPH -->
-    <p draggable="true" ondragstart="drag(event)">
-      <a class="btn" href="profiles-seraph-exec.html">
-        CALLSIGN: SERAPH <span class="flag-red">[EXECUTIVE]</span>
-      </a>
-    </p>
+    <p><a class="btn" href="profiles-seraph.html">CALLSIGN: SERAPH <span class="flag-red">[EXECUTIVE]</span></a></p>
+    <p><a class="btn" href="profiles-operator02.html">CALLSIGN: GARUDA <span class="status-mia">[MIA]</span></a></p>
+    <p><a class="btn" href="profiles-operator03.html">CALLSIGN: HARUNA <span class="status-kia">[KIA]</span></a></p>
+    <!-- ... keep the rest of your operator links the same ... -->
 
-    <!-- EXISTING OPERATORS (KEEP ADDING AS NEEDED) -->
-    <p draggable="true" ondragstart="drag(event)">
-      <a class="btn" href="profiles-operator01.html">
-        CALLSIGN: GARUDA <span class="status-mia">[MIA]</span>
-      </a>
-    </p>
+    <p class="warning">ETHICS & PERSONNEL OVERSIGHT ACTIVE<br>AUTHORITY: SA-09 “REDLINE”</p>
+    <div class="footer">Aquila PMC Ethical System — Controlled by SA-09 “REDLINE”</div>
+  </div>
 
-    <p class="warning">
-      ETHICS & PERSONNEL OVERSIGHT ACTIVE<br>
-      AUTHORITY: SA-09 “REDLINE”
-    </p>
+  <!-- WATCHLIST PANEL -->
+  <div class="watchlist" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>OPERATOR WATCHLIST</h3>
+    <div id="watch-items"></div>
+  </div>
+</div>
 
-    <div class
+<script>
+if (sessionStorage.getItem("auth") !== "SERAPH_EXECUTIVE") {
+  // Only SERAPH EXECUTIVE sees watchlist properly
+  console.log("Standard operators can still use DB normally.");
+}
+
+function allowDrop(e){ e.preventDefault(); }
+function drag(e){ e.dataTransfer.setData("text", e.target.innerHTML); }
+function drop(e){
+  e.preventDefault();
+  const div = document.createElement("div");
+  div.className = "watch-item";
+  div.innerHTML = e.dataTransfer.getData("text");
+  document.getElementById("watch-items").appendChild(div);
+}
+</script>
+
+</body>
+</html>
