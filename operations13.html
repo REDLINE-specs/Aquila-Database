@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EXECUTIVE FILE OPERATIONS</title>
+  <link rel="stylesheet" href="ex-style.css">
+</head>
+<body>
+  <div class="terminal">
+    <h1>FILE OPERATIONS MODULE</h1>
+    <p id="terminal-text">SECURE EXECUTIVE SYSTEM ACTIVE...</p>
+
+    <input type="text" id="filename" placeholder="FILE NAME">
+    <button type="button" class="btn" onclick="performOperation()">OPEN FILE</button>
+
+    <!-- CONFIRMED OPERATIONS PANEL -->
+    <h2 style="margin-top:20px;">CONFIRMED OPERATIONS</h2>
+    <textarea
+      id="operations-panel"
+      rows="6"
+      placeholder="EXECUTIVE ACTION LOG..."
+      style="
+        width:100%;
+        background:black;
+        border:1px solid #ff3333;
+        padding:10px;
+        resize:none;
+      "
+    ></textarea>
+
+    <!-- SECURITY LOG -->
+    <div id="security-log" style="margin-top:15px; font-size:0.9em;">
+      SECURITY LOG ACTIVE...
+    </div>
+
+    <p class="warning">
+      ACCESS RESTRICTED: EXECUTIVE LEVEL ONLY
+    </p>
+  </div>
+
+  <script>
+    function typeText(element, text, speed = 40) {
+      let i = 0;
+      element.innerHTML = '';
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    function appendLog(message, speed = 30) {
+      const log = document.getElementById('security-log');
+      let i = 0;
+      function type() {
+        if (i < message.length) {
+          log.innerHTML += message.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else {
+          log.innerHTML += '<br>';
+        }
+      }
+      type();
+    }
+
+    function performOperation() {
+      const fileInput = document.getElementById('filename');
+      const opsPanel = document.getElementById('operations-panel');
+      const terminalText = document.getElementById('terminal-text');
+      const filename = fileInput.value.trim();
+
+      if (!filename) {
+        typeText(terminalText, 'ERROR: NO FILE ENTERED...');
+        appendLog('[SECURITY] Empty operation attempt detected...');
+        return;
+      }
+
+      const entry = `[CONFIRMED] FILE OPENED → ${filename.toUpperCase()}`;
+
+      typeText(
+        terminalText,
+        `ACCESS GRANTED...\nOPENING FILE: ${filename.toUpperCase()}`
+      );
+
+      opsPanel.value += entry + '\n';
+      appendLog(`[SECURITY] ${entry}`);
+
+      fileInput.value = '';
+    }
+
+    typeText(
+      document.getElementById('terminal-text'),
+      'SECURE EXECUTIVE SYSTEM ACTIVE...'
+    );
+    appendLog('[SECURITY] Executive session initialized...');
+  </script>
+</body>
+</html>
 
