@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AQUILA — ETHICS OVERSIGHT</title>
+  <link rel="stylesheet" href="ec-style.css">
+</head>
+<body>
+
+  <div class="terminal">
+
+    <div class="alert-bar">ATTENTION</div>
+
+    <p class="ethics-warning">
+      IT IS NECESSARY FOR EVERY OPERATIVE TO READ AND UNDERSTAND THESE RULES.<br>
+      IGNORANCE DOES NOT EXEMPT YOU FROM PUNISHMENT.<br>
+      FAILURE TO COMPLY WILL RESULT IN DISCIPLINARY ACTION.
+    </p>
+
+    <h2>ETHICS RULES — OPERATIONAL CONDUCT</h2>
+
+    <!-- Rules list (shortened here for brevity, copy full rules as needed) -->
+    <p class="ethics-rule">1. Every operative is accountable for their actions at all times.</p>
+    <p class="ethics-rule">2. Ignorance of ethical directives does not exempt an operative from punishment.</p>
+    <p class="ethics-rule">3. Orders that clearly violate ethics must be reported immediately to Oversight.</p>
+    <p class="ethics-rule">4. Blind obedience is not a defense for unethical conduct.</p>
+    <p class="ethics-rule">5. Civilian lives are to be protected as a priority unless overridden by Oversight.</p>
+
+    <!-- FIRST ACKNOWLEDGEMENT roughly halfway -->
+    <div class="acknowledgement">
+      <label><input type="checkbox" id="ack1"> I have read and understood the above rules.</label>
+    </div>
+
+    <!-- More rules -->
+    <p class="ethics-rule">6. Excessive force is prohibited when a lesser action achieves the same objective.</p>
+    <p class="ethics-rule">7. Prisoners and detainees must not be harmed, abused, or exploited.</p>
+    <p class="ethics-rule">8. Medical personnel must be protected and allowed to perform their duties.</p>
+    <p class="ethics-rule">9. Looting, theft, or unauthorized acquisition of property is forbidden.</p>
+    <p class="ethics-rule">10. Personal vendettas must never influence operational decisions.</p>
+
+    <!-- SECOND ACKNOWLEDGEMENT roughly three-quarters -->
+    <div class="acknowledgement">
+      <label><input type="checkbox" id="ack2"> I have read and understood the remaining rules.</label>
+    </div>
+
+    <!-- Remaining rules -->
+    <p class="ethics-rule">11. Collateral damage must be minimized at all costs.</p>
+    <p class="ethics-rule">12. Collateral damage must be reported truthfully and in full.</p>
+    <!-- ... include all other rules ... -->
+
+    <div class="alert-bar">THESE RULES ARE NOT OPTIONAL</div>
+
+    <!-- RETURN BUTTON initially disabled -->
+    <a class="btn" id="return-btn" href="index.html" style="pointer-events: none; opacity: 0.5;">
+      RETURN TO LOG IN SCREEN
+    </a>
+
+    <div class="footer">Controlled by SA-09 “REDLINE”</div>
+  </div>
+
+  <script>
+    const ack1 = document.getElementById('ack1');
+    const ack2 = document.getElementById('ack2');
+    const returnBtn = document.getElementById('return-btn');
+    const REDLINE_CALLSIGN = 'REDLINE';
+    const TIME_LIMIT = 10 * 60; // 10 minutes in seconds
+
+    let timerComplete = false;
+
+    // Start 10-min countdown
+    let countdown = TIME_LIMIT;
+    const interval = setInterval(() => {
+      countdown--;
+      if (countdown <= 0) {
+        timerComplete = true;
+        clearInterval(interval);
+        checkReturn();
+      }
+    }, 1000);
+
+    // Check if both acknowledgements are checked and timer finished
+    function checkReturn() {
+      if (ack1.checked && ack2.checked && timerComplete) {
+        returnBtn.style.pointerEvents = 'auto';
+        returnBtn.style.opacity = '1';
+        // REDLINE stores the completion for tracking
+        const callsign = localStorage.getItem('currentUser') || '';
+        if (callsign === REDLINE_CALLSIGN) {
+          let log = JSON.parse(localStorage.getItem('ethicsOversightLog') || '{}');
+          log[REDLINE_CALLSIGN] = { ack1: true, ack2: true, time: new Date().toISOString() };
+          localStorage.setItem('ethicsOversightLog', JSON.stringify(log));
+        }
+      }
+    }
+
+    // Check on every checkbox click
+    ack1.addEventListener('change', checkReturn);
+    ack2.addEventListener('change', checkReturn);
+  </script>
+
+</body>
+</html>
