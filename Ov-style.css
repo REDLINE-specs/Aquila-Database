@@ -1,1 +1,206 @@
+/* ===== OVERSIGHT TERMINAL STYLE (DARK BLUE) ===== */
 
+/* Terminal container */
+.terminal {
+  border: 1px solid #2f6bff;
+  padding: 20px;
+  width: 92%;
+  max-width: 420px;
+  background-color: #030814;
+  font-family: monospace;
+  color: #4f7cff !important;
+
+  /* OVERSIGHT glow + pulse */
+  box-shadow:
+    0 0 10px rgba(47, 107, 255, 0.4),
+    0 0 25px rgba(47, 107, 255, 0.25);
+  animation: oversight-pulse 3s infinite;
+}
+
+/* OVERSIGHT WARNING BANNER */
+.terminal::before {
+  content: "⚠ OVERSIGHT ACCESS ONLY ⚠";
+  display: block;
+  margin-bottom: 12px;
+  padding: 6px 8px;
+  border: 1px solid #2f6bff;
+  background: rgba(47, 107, 255, 0.08);
+  color: #2f6bff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Force all descendants of terminal to inherit terminal blue */
+.terminal,
+.terminal * {
+  color: #4f7cff !important;
+  font-family: monospace !important;
+  background-color: inherit !important;
+}
+
+/* Headings inside terminal */
+.terminal h1,
+.terminal h2 {
+  color: #6b8cff !important;
+  animation: oversight-flicker 4s infinite;
+}
+
+/* Inputs */
+.terminal input {
+  width: 100%;
+  background-color: black !important;
+  color: #4f7cff !important;
+  border: 1px solid #2f6bff;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+/* Buttons */
+.terminal .btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #2f6bff;
+  color: #4f7cff !important;
+  text-decoration: none;
+  cursor: pointer;
+  text-shadow: 0 0 6px rgba(47, 107, 255, 0.6);
+}
+
+.terminal .btn:hover {
+  background: #2f6bff;
+  color: #030814;
+  box-shadow:
+    0 0 10px rgba(47, 107, 255, 0.8),
+    inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Flags & Status */
+.terminal .flag-green { color: #4f7cff !important; }
+.terminal .flag-yellow { color: #ffd36b !important; }
+.terminal .flag-red { color: #ff6b6b !important; }
+
+.terminal .status-active {
+  color: #4f7cff !important;
+  animation: oversight-heartbeat 1.8s infinite;
+}
+
+.terminal .status-mia { color: #ffd36b !important; }
+.terminal .status-kia { color: #ff6b6b !important; }
+
+/* Footer */
+.terminal .footer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #6b7aa6 !important;
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+/* Preformatted text / code blocks */
+.terminal pre,
+.terminal code {
+  color: #4f7cff !important;
+  background-color: black !important;
+  font-family: monospace !important;
+}
+
+/* ===== WARNING OVERLAY ===== */
+#warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+  font-family: monospace;
+  color: #4f7cff !important;
+}
+
+/* All overlay text inherits blue unless overridden */
+#warning-overlay,
+#warning-overlay * {
+  color: #4f7cff !important;
+  font-family: monospace !important;
+}
+
+/* Warning text exception */
+.warning-text {
+  color: #2f6bff !important;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: glitch 0.2s infinite;
+  position: relative;
+}
+
+/* CRT scanlines */
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(80, 120, 255, 0.05),
+    rgba(80, 120, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes oversight-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(47, 107, 255, 0.4),
+      0 0 25px rgba(47, 107, 255, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(47, 107, 255, 0.7),
+      0 0 45px rgba(47, 107, 255, 0.4);
+  }
+}
+
+@keyframes oversight-flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.4; }
+  97% { opacity: 1; }
+  98% { opacity: 0.6; }
+}
+
+@keyframes oversight-heartbeat {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Glitch animation */
+@keyframes glitch {
+  0% { transform: translate(0,0); opacity:1; }
+  10% { transform: translate(-2px,1px); opacity:0.9; }
+  20% { transform: translate(2px,-1px); opacity:1; }
+  30% { transform: translate(-1px,2px); opacity:0.95; }
+  40% { transform: translate(1px,-2px); opacity:1; }
+  50% { transform: translate(-2px,1px); opacity:0.9; }
+  60% { transform: translate(2px,-1px); opacity:1; }
+  70% { transform: translate(-1px,2px); opacity:0.95; }
+  80% { transform: translate(1px,-2px); opacity:1; }
+  90% { transform: translate(-2px,1px); opacity:0.9; }
+  100% { transform: translate(0,0); opacity:1; }
+  }
