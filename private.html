@@ -1,21 +1,194 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PRIVATE NOTES</title>
-  <link rel="stylesheet" href="style.css">
+  <title>OVERSIGHT PRIVATE NOTES</title>
+  <link rel="stylesheet" href="Ov-style.css">
+  <style>
+    /* Minor adjustments for tabs and notes */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .tab {
+      padding: 8px 12px;
+      border: 1px solid #2f6bff;
+      cursor: pointer;
+      background-color: #030814;
+      color: #4f7cff;
+      font-weight: bold;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    .tab.active {
+      background-color: #2f6bff;
+      color: #030814;
+    }
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .tab-content.active {
+      display: flex;
+    }
+
+    .notes-container, .observation-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .operative-note label, .observation-note label {
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #6b8cff;
+    }
+
+    .operative-note textarea, .observation-note textarea, .observation-note input {
+      width: 100%;
+      min-height: 80px;
+      padding: 8px;
+      background-color: #030814;
+      border: 1px solid #2f6bff;
+      color: #4f7cff;
+      font-family: monospace;
+      resize: vertical;
+    }
+
+    .observation-note input {
+      min-height: 30px;
+    }
+
+  </style>
 </head>
 <body>
   <div class="terminal">
-    <h2>NOTES</h2>
+    <h2>OVERSIGHT OPERATIVE NOTES</h2>
+    <p>ONLY OVERSIGHT AUTHORITY MAY VIEW OR EDIT THESE NOTES.</p>
 
-    <p>Operator: [SERAPH]</p>
-    <p>N1:In case of traitory<br> A: [RELEASE FILE]</p>
-    <p>N2: Chances of traitory <br> A: [LOW]</p>
-    <p>N3: Relationship <br> A: [NORMAL]</p>
-    <!-- Repeat more questions as needed -->
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-tab="notes">Private Notes</div>
+      <div class="tab" data-tab="observation">Under Strict Observation</div>
+    </div>
 
-    <a class="btn" href="database.html">RETURN TO DATABASE</a>
-    <div class="footer">Controlled by SA-09 “REDLINE”</div>
+    <!-- Tab Contents -->
+    <div class="tab-content active" id="notes">
+      <div class="notes-container">
+        <!-- Operatives list -->
+        <div class="operative-note">
+          <label for="note-SERAPH">SERAPH</label>
+          <textarea id="note-SERAPH" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-GARUDA">GARUDA</label>
+          <textarea id="note-GARUDA" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-HARUNA">HARUNA</label>
+          <textarea id="note-HARUNA" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-ECHO">ECHO</label>
+          <textarea id="note-ECHO" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-SABLE">SABLE</label>
+          <textarea id="note-SABLE" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-NONE1">NONE</label>
+          <textarea id="note-NONE1" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-HOLLY">HOLLY</label>
+          <textarea id="note-HOLLY" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-TAIL">TAIL</label>
+          <textarea id="note-TAIL" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-DOPPIO">DOPPIO</label>
+          <textarea id="note-DOPPIO" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-CHIMA">CHIMA</label>
+          <textarea id="note-CHIMA" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-FENRIR">FENRIR</label>
+          <textarea id="note-FENRIR" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-UNDORBINE">UNDORBINE</label>
+          <textarea id="note-UNDORBINE" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-NONE2">NONE</label>
+          <textarea id="note-NONE2" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-NONE3">NONE</label>
+          <textarea id="note-NONE3" placeholder="Enter notes here..."></textarea>
+        </div>
+        <div class="operative-note">
+          <label for="note-NONE4">NONE</label>
+          <textarea id="note-NONE4" placeholder="Enter notes here..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strict Observation tab -->
+    <div class="tab-content" id="observation">
+      <div class="observation-container">
+        <div class="observation-note">
+          <label for="strict-observation">Enter callsigns under strict observation</label>
+          <textarea id="strict-observation" placeholder="Type callsigns separated by commas..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">FOR OVERSIGHT USE ONLY</div>
   </div>
+
+  <script>
+    // Tabs switching
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const target = tab.dataset.tab;
+        tabContents.forEach(tc => {
+          tc.classList.remove('active');
+          if(tc.id === target) tc.classList.add('active');
+        });
+      });
+    });
+
+    // Operative notes
+    const operatives = ["SERAPH","GARUDA","HARUNA","ECHO","SABLE","NONE1","HOLLY","TAIL","DOPPIO","CHIMA","FENRIR","UNDORBINE","NONE2","NONE3","NONE4"];
+    operatives.forEach(name => {
+      const textarea = document.getElementById('note-' + name);
+      const saved = localStorage.getItem('note-' + name);
+      if(saved) textarea.value = saved;
+      textarea.addEventListener('input', () => {
+        localStorage.setItem('note-' + name, textarea.value);
+      });
+    });
+
+    // Strict observation notes
+    const observation = document.getElementById('strict-observation');
+    const savedObs = localStorage.getItem('strict-observation');
+    if(savedObs) observation.value = savedObs;
+    observation.addEventListener('input', () => {
+      localStorage.setItem('strict-observation', observation.value);
+    });
+  </script>
 </body>
 </html>
