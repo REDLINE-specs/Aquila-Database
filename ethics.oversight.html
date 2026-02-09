@@ -8,94 +8,115 @@
 
   <div class="terminal">
 
-    <div class="alert-bar">ATTENTION</div>
+    <!-- Top attention bar -->
+    <div class="alert-bar">
+      ATTENTION
+    </div>
 
+    <!-- Warning text -->
     <p class="ethics-warning">
       IT IS NECESSARY FOR EVERY OPERATIVE TO READ AND UNDERSTAND THESE RULES.<br>
       IGNORANCE DOES NOT EXEMPT YOU FROM PUNISHMENT.<br>
       FAILURE TO COMPLY WILL RESULT IN DISCIPLINARY ACTION.
     </p>
 
+    <!-- Page title -->
     <h2>ETHICS RULES — OPERATIONAL CONDUCT</h2>
 
-    <!-- Rules list (shortened here for brevity, copy full rules as needed) -->
-    <p class="ethics-rule">1. Every operative is accountable for their actions at all times.</p>
+    <!-- Rules list -->
+    <p class="ethics-rule">1. Every operative is accountable for their actions at all times, regardless of orders, circumstances, or outcome.</p>
     <p class="ethics-rule">2. Ignorance of ethical directives does not exempt an operative from punishment.</p>
     <p class="ethics-rule">3. Orders that clearly violate ethics must be reported immediately to Oversight.</p>
     <p class="ethics-rule">4. Blind obedience is not a defense for unethical conduct.</p>
-    <p class="ethics-rule">5. Civilian lives are to be protected as a priority unless overridden by Oversight.</p>
+    <p class="ethics-rule">5. Civilian lives are to be protected as a priority unless explicitly overridden by Oversight.</p>
 
-    <!-- FIRST ACKNOWLEDGEMENT roughly halfway -->
-    <div class="acknowledgement">
-      <label><input type="checkbox" id="ack1"> I have read and understood the above rules.</label>
+    <!-- First acknowledgment halfway to first half -->
+    <div class="acknowledgment">
+      <input type="checkbox" id="ack1"> I acknowledge I have read up to this point.
     </div>
 
-    <!-- More rules -->
     <p class="ethics-rule">6. Excessive force is prohibited when a lesser action achieves the same objective.</p>
     <p class="ethics-rule">7. Prisoners and detainees must not be harmed, abused, or exploited.</p>
     <p class="ethics-rule">8. Medical personnel must be protected and allowed to perform their duties.</p>
     <p class="ethics-rule">9. Looting, theft, or unauthorized acquisition of property is forbidden.</p>
     <p class="ethics-rule">10. Personal vendettas must never influence operational decisions.</p>
-
-    <!-- SECOND ACKNOWLEDGEMENT roughly three-quarters -->
-    <div class="acknowledgement">
-      <label><input type="checkbox" id="ack2"> I have read and understood the remaining rules.</label>
-    </div>
-
-    <!-- Remaining rules -->
     <p class="ethics-rule">11. Collateral damage must be minimized at all costs.</p>
     <p class="ethics-rule">12. Collateral damage must be reported truthfully and in full.</p>
-    <!-- ... include all other rules ... -->
+    <p class="ethics-rule">13. Falsifying reports is a severe ethical violation.</p>
+    <p class="ethics-rule">14. Altering evidence is prohibited.</p>
+    <p class="ethics-rule">15. Tampering with recordings, logs, or data is prohibited.</p>
 
-    <div class="alert-bar">THESE RULES ARE NOT OPTIONAL</div>
+    <!-- Second acknowledgment halfway through rules -->
+    <div class="acknowledgment">
+      <input type="checkbox" id="ack2"> I acknowledge I have read up to this point.
+    </div>
 
-    <!-- RETURN BUTTON initially disabled -->
-    <a class="btn" id="return-btn" href="index.html" style="pointer-events: none; opacity: 0.5;">
-      RETURN TO LOG IN SCREEN
-    </a>
+    <p class="ethics-rule">16. Friendly fire incidents must be reported immediately.</p>
+    <p class="ethics-rule">17. Covering for another operative’s misconduct is punishable.</p>
+    <p class="ethics-rule">18. Loyalty to teammates does not override loyalty to ethics.</p>
+    <p class="ethics-rule">19. Abuse of authority is forbidden.</p>
+    <p class="ethics-rule">20. Threats, coercion, or intimidation outside mission scope are prohibited.</p>
+    <p class="ethics-rule">21. Operatives must not act under the influence of substances.</p>
+    <p class="ethics-rule">22. Reckless behavior that endangers teammates is unethical.</p>
+    <p class="ethics-rule">23. Unauthorized execution of targets is forbidden.</p>
+    <p class="ethics-rule">24. Rules of engagement must be followed precisely.</p>
+    <p class="ethics-rule">25. Deviations from mission parameters require justification.</p>
+    <!-- (rest of the rules can continue similarly) -->
 
-    <div class="footer">Controlled by SA-09 “REDLINE”</div>
+    <!-- Bottom alert bar -->
+    <div class="alert-bar">
+      THESE RULES ARE NOT OPTIONAL
+    </div>
+
+    <!-- Return button, initially disabled -->
+    <a id="return-btn" class="btn disabled" href="index.html">RETURN TO LOG IN SCREEN</a>
+
+    <div class="footer">
+      Controlled by SA-09 “REDLINE”
+    </div>
+
   </div>
 
-  <script>
-    const ack1 = document.getElementById('ack1');
-    const ack2 = document.getElementById('ack2');
-    const returnBtn = document.getElementById('return-btn');
-    const REDLINE_CALLSIGN = 'REDLINE';
-    const TIME_LIMIT = 10 * 60; // 10 minutes in seconds
+<script>
+  // Minimum reading time in milliseconds (10 minutes)
+  const minTime = 10 * 60 * 1000;
+  const returnBtn = document.getElementById('return-btn');
+  const ack1 = document.getElementById('ack1');
+  const ack2 = document.getElementById('ack2');
 
-    let timerComplete = false;
+  let startTime = Date.now();
 
-    // Start 10-min countdown
-    let countdown = TIME_LIMIT;
-    const interval = setInterval(() => {
-      countdown--;
-      if (countdown <= 0) {
-        timerComplete = true;
-        clearInterval(interval);
-        checkReturn();
+  // REDLINE exclusive tracking
+  const callsign = localStorage.getItem('callsign'); // should be set at login
+  const redlineLog = 'ethics_read_log';
+
+  function enableReturn() {
+    if (ack1.checked && ack2.checked && (Date.now() - startTime) >= minTime) {
+      returnBtn.classList.remove('disabled');
+
+      // Only REDLINE sees who acknowledged
+      if (callsign === 'REDLINE') {
+        const checked = [];
+        if (ack1.checked) checked.push('ACK1');
+        if (ack2.checked) checked.push('ACK2');
+        localStorage.setItem(redlineLog, JSON.stringify(checked));
+        console.log('REDLINE log:', checked);
       }
-    }, 1000);
-
-    // Check if both acknowledgements are checked and timer finished
-    function checkReturn() {
-      if (ack1.checked && ack2.checked && timerComplete) {
-        returnBtn.style.pointerEvents = 'auto';
-        returnBtn.style.opacity = '1';
-        // REDLINE stores the completion for tracking
-        const callsign = localStorage.getItem('currentUser') || '';
-        if (callsign === REDLINE_CALLSIGN) {
-          let log = JSON.parse(localStorage.getItem('ethicsOversightLog') || '{}');
-          log[REDLINE_CALLSIGN] = { ack1: true, ack2: true, time: new Date().toISOString() };
-          localStorage.setItem('ethicsOversightLog', JSON.stringify(log));
-        }
-      }
+    } else {
+      returnBtn.classList.add('disabled');
     }
+  }
 
-    // Check on every checkbox click
-    ack1.addEventListener('change', checkReturn);
-    ack2.addEventListener('change', checkReturn);
-  </script>
+  // Check every second
+  setInterval(enableReturn, 1000);
+</script>
+
+<style>
+  .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+</style>
 
 </body>
 </html>
