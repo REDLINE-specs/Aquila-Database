@@ -1,0 +1,107 @@
+/* ===== ETHICS DIRECTIVE STYLE (GREEN / LABORATORY THEME) ===== */
+
+.terminal {
+  border: 1px solid #00ff88;
+  padding: 20px;
+  width: 92%;
+  max-width: 600px;
+  background-color: #070404;
+  font-family: monospace;
+  color: #00ff88 !important;
+  box-shadow:
+    0 0 10px rgba(0, 255, 136, 0.4),
+    0 0 25px rgba(0, 255, 136, 0.25);
+  overflow-y: auto; /* Scroll if content is too long */
+  max-height: 90vh;
+}
+
+/* Force all descendants of terminal to inherit green */
+.terminal,
+.terminal * {
+  color: #00ff88 !important;
+  font-family: monospace !important;
+  background-color: inherit !important;
+}
+
+/* Headings inside terminal */
+.terminal h1,
+.terminal h2 {
+  color: #00ff88 !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.terminal .btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #00ff88;
+  color: #00ff88 !important;
+  text-decoration: none;
+  cursor: pointer;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
+}
+
+.terminal .btn:hover {
+  background: #00ff88;
+  color: #070404;
+  box-shadow:
+    0 0 10px rgba(0, 255, 136, 0.8),
+    inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Footer */
+.terminal .footer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #00aa66 !important;
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+/* ALERT BARS */
+.alert-bar {
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 12px;
+  margin: 20px 0;
+  text-transform: uppercase;
+  background-color: rgba(0, 255, 136, 0.05);
+}
+
+/* ETHICS WARNING TEXT */
+.ethics-warning {
+  color: #00ff88;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+/* ETHICS RULES */
+.ethics-rule {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+/* Scrollbar styling for terminal */
+.terminal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal::-webkit-scrollbar-track {
+  background: #070404;
+}
+
+.terminal::-webkit-scrollbar-thumb {
+  background-color: #00ff88;
+  border-radius: 4px;
+  border: 2px solid #070404;
+}
