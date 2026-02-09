@@ -4,6 +4,28 @@
   <title>OVERSIGHT PRIVATE NOTES</title>
   <link rel="stylesheet" href="Ov-style.css">
   <style>
+    /* FULL SCREEN ADJUSTMENTS */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #030814;
+      font-family: monospace;
+    }
+
+    .terminal {
+      width: 100%;
+      height: 100%;
+      max-width: none; /* override old max-width */
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #030814;
+      color: #4f7cff;
+      overflow-y: auto; /* scroll inside terminal if content is long */
+    }
+
     /* Minor adjustments for tabs and notes */
     .tabs {
       display: flex;
@@ -59,7 +81,6 @@
     .observation-note input {
       min-height: 30px;
     }
-
   </style>
 </head>
 <body>
