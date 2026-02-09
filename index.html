@@ -70,6 +70,14 @@
 
           setTimeout(() => {
             overlay.style.display = 'flex';
+            overlay.innerHTML = `
+              <div class="warning-text">
+                WRONG CALLSIGN<br>
+                ACCESS UNAUTHORIZED<br>
+                SERVER SHUTDOWN
+              </div>
+              <div class="scanlines"></div>
+            `;
           }, 600);
 
           return;
@@ -84,10 +92,28 @@
         return;
       }
 
-      // ===== BLACKSITE =====
+      // ===== REDLINE / BLACKSITE =====
+      if (callsign === "REDLINE" && key === "BLACKSITE") {
+
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
+
+        typeText(
+          terminalText,
+          'BLACKSITE ACCESS CONFIRMED...\nOVERSIGHT INTERFACE UNLOCKED'
+        );
+
+        setTimeout(() => {
+          window.location.href = "private.html";
+        }, 1200);
+
+        return;
+      }
+
+      // ===== BLACKSITE (all others denied) =====
       if (key === "BLACKSITE") {
 
-        if (!validOperators.includes(callsign)) {
+        if (callsign !== "REDLINE") {
           callsignInput.disabled = true;
           keyInput.disabled = true;
 
@@ -96,28 +122,39 @@
             'OVERSIGHT SYSTEM LOADING...\nOVERSIGHT OPERATOR DETECTED'
           );
 
-          setTimeout(() => {
-            overlay.style.display = 'flex';
-          }, 600);
+          overlay.style.display = 'flex';
+          overlay.innerHTML = `
+            <div class="warning-text-oversight">
+              SINCE IT FAILED FOR YOU.<br>
+              DON'T TRY AGAIN.<br>
+              OVERSIGHT ONLY.
+            </div>
+            <div class="scanlines"></div>
+          `;
 
           return;
         }
+      }
 
+      // ===== EXECUTIVE (all others denied) =====
+      if (key === "EXECUTIVE" && callsign !== "SERAPH") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
 
         typeText(
           terminalText,
-          'SYSTEM FREEZE DETECTED...\nLOCKING INTERFACE...'
+          'EXECUTIVE ACCESS DETECTED...\nUNAUTHORIZED OPERATOR'
         );
 
-        setTimeout(() => {
-          overlay.style.display = 'flex';
-        }, 600);
-
-        setTimeout(() => {
-          window.location.href = "private.html";
-        }, 2000);
+        overlay.style.display = 'flex';
+        overlay.innerHTML = `
+          <div class="warning-text-executive">
+            SINCE IT FAILED FOR YOU.<br>
+            DON'T TRY AGAIN.<br>
+            EXECUTIVE ONLY.
+          </div>
+          <div class="scanlines"></div>
+        `;
 
         return;
       }
@@ -150,6 +187,32 @@
       "SECURE INTERNAL SYSTEM..."
     );
   </script>
+
+  <style>
+    /* OVERSIGHT blue glitch style */
+    .warning-text-oversight {
+      color: #4f7cff !important; /* OVERSIGHT blue */
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: glitch 0.2s infinite;
+      position: relative;
+    }
+
+    /* EXECUTIVE red glitch style */
+    .warning-text-executive {
+      color: #ff3333 !important; /* Executive red */
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: glitch 0.2s infinite;
+      position: relative;
+    }
+  </style>
 
 </body>
 </html>
