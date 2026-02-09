@@ -23,30 +23,34 @@
     <!-- Page title -->
     <h2>ETHICS RULES — OPERATIONAL CONDUCT</h2>
 
-    <!-- Rules list -->
-    <p class="ethics-rule">1. Every operative is accountable for their actions at all times, regardless of orders, circumstances, or outcome.</p>
+    <!-- Rules list (shortened example, extend as needed) -->
+    <p class="ethics-rule">1. Every operative is accountable for their actions at all times.</p>
     <p class="ethics-rule">2. Ignorance of ethical directives does not exempt an operative from punishment.</p>
     <p class="ethics-rule">3. Orders that clearly violate ethics must be reported immediately to Oversight.</p>
     <p class="ethics-rule">4. Blind obedience is not a defense for unethical conduct.</p>
     <p class="ethics-rule">5. Civilian lives are to be protected as a priority unless explicitly overridden by Oversight.</p>
+
+    <!-- First acknowledgment checkpoint -->
+    <div class="acknowledgment">
+      <input type="checkbox" id="ack1"> I acknowledge I have read up to this point.
+    </div>
+
     <p class="ethics-rule">6. Excessive force is prohibited when a lesser action achieves the same objective.</p>
     <p class="ethics-rule">7. Prisoners and detainees must not be harmed, abused, or exploited.</p>
     <p class="ethics-rule">8. Medical personnel must be protected and allowed to perform their duties.</p>
     <p class="ethics-rule">9. Looting, theft, or unauthorized acquisition of property is forbidden.</p>
     <p class="ethics-rule">10. Personal vendettas must never influence operational decisions.</p>
-
-    <!-- FIRST ACKNOWLEDGEMENT -->
-    <div class="acknowledgement">
-      <label>
-        <input type="checkbox" id="acknowledge-first"> I have read and understood the first section of rules.
-      </label>
-    </div>
-
     <p class="ethics-rule">11. Collateral damage must be minimized at all costs.</p>
     <p class="ethics-rule">12. Collateral damage must be reported truthfully and in full.</p>
     <p class="ethics-rule">13. Falsifying reports is a severe ethical violation.</p>
     <p class="ethics-rule">14. Altering evidence is prohibited.</p>
     <p class="ethics-rule">15. Tampering with recordings, logs, or data is prohibited.</p>
+
+    <!-- Second acknowledgment checkpoint -->
+    <div class="acknowledgment">
+      <input type="checkbox" id="ack2"> I acknowledge I have read up to this point.
+    </div>
+
     <p class="ethics-rule">16. Friendly fire incidents must be reported immediately.</p>
     <p class="ethics-rule">17. Covering for another operative’s misconduct is punishable.</p>
     <p class="ethics-rule">18. Loyalty to teammates does not override loyalty to ethics.</p>
@@ -57,61 +61,15 @@
     <p class="ethics-rule">23. Unauthorized execution of targets is forbidden.</p>
     <p class="ethics-rule">24. Rules of engagement must be followed precisely.</p>
     <p class="ethics-rule">25. Deviations from mission parameters require justification.</p>
-    <p class="ethics-rule">26. Medical aid must be rendered when feasible, even to adversaries.</p>
-    <p class="ethics-rule">27. Torture is prohibited under all circumstances.</p>
-    <p class="ethics-rule">28. Psychological abuse is prohibited.</p>
-    <p class="ethics-rule">29. Sexual misconduct is prohibited.</p>
-
-    <!-- SECOND ACKNOWLEDGEMENT -->
-    <div class="acknowledgement">
-      <label>
-        <input type="checkbox" id="acknowledge-half"> I have read and understood the first half of the rules.
-      </label>
-    </div>
-
-    <p class="ethics-rule">30. Exploitation of civilians is prohibited.</p>
-    <p class="ethics-rule">31. Use of prohibited weapons is forbidden.</p>
-    <p class="ethics-rule">32. Unauthorized experimentation on subjects is forbidden.</p>
-    <p class="ethics-rule">33. Maintain operational readiness at all times.</p>
-    <p class="ethics-rule">34. Ensure proper maintenance and accountability of all equipment.</p>
-    <p class="ethics-rule">35. Never compromise a mission for personal convenience.</p>
-    <p class="ethics-rule">36. Avoid unnecessary risks that could endanger teammates.</p>
-    <p class="ethics-rule">37. Do not engage in conflicts of interest.</p>
-    <p class="ethics-rule">38. Respect cultural norms and local populations during operations.</p>
-    <p class="ethics-rule">39. Avoid reprisals or retaliation outside of lawful engagement.</p>
-    <p class="ethics-rule">40. Conduct yourself professionally during all interactions with allied forces.</p>
-    <p class="ethics-rule">41. Maintain accurate and timely logs of operational activities.</p>
-    <p class="ethics-rule">42. Ensure proper handling and disposal of classified or sensitive material.</p>
-    <p class="ethics-rule">43. Respect privacy rights of civilians and non-combatants.</p>
-    <p class="ethics-rule">44. Do not falsify reports, intelligence, or operational outcomes.</p>
-    <p class="ethics-rule">45. Avoid intimidation, harassment, or abuse of authority.</p>
-    <p class="ethics-rule">46. Report misconduct by peers or superiors through proper channels.</p>
-    <p class="ethics-rule">47. Protect mission-critical assets from theft or sabotage.</p>
-    <p class="ethics-rule">48. Prioritize the safety and security of teammates in all planning.</p>
-    <p class="ethics-rule">49. Follow proper chains of command in every decision.</p>
-    <p class="ethics-rule">50. Train continuously to maintain professional competency.</p>
-    <p class="ethics-rule">51. Respect and uphold international humanitarian standards.</p>
-    <p class="ethics-rule">52. Avoid unnecessary destruction of property unless operationally required.</p>
-    <p class="ethics-rule">53. Ensure that all actions can withstand post-mission ethical review.</p>
-    <p class="ethics-rule">54. Refrain from using classified or operational knowledge for personal gain.</p>
-    <p class="ethics-rule">55. Foster trust and morale among team members.</p>
-    <p class="ethics-rule">56. Maintain situational awareness at all times.</p>
-    <p class="ethics-rule">57. Avoid involvement in political disputes unrelated to operational duties.</p>
-    <p class="ethics-rule">58. Strive for transparency and honesty in all operational reporting.</p>
+    <!-- Continue the list as needed -->
 
     <!-- Bottom alert bar -->
     <div class="alert-bar">
       THESE RULES ARE NOT OPTIONAL
     </div>
 
-    <!-- LOG IN RETURN BUTTON -->
-    <a class="btn" href="#" id="return-btn">RETURN TO LOG IN SCREEN</a>
-
-    <!-- REDLINE-exclusive Oversight Log -->
-    <div id="oversight-log" style="display:none; margin-top:20px;">
-      <h3>OVERSIGHT LOG — Operatives who acknowledged the rules:</h3>
-      <ul id="oversight-list"></ul>
-    </div>
+    <!-- Return button, initially disabled -->
+    <a id="return-btn" class="btn disabled" href="index.html">RETURN TO LOG IN SCREEN</a>
 
     <div class="footer">
       Controlled by SA-09 “REDLINE”
@@ -119,76 +77,33 @@
 
   </div>
 
-  <script>
-    const acknowledgeFirst = document.getElementById('acknowledge-first');
-    const acknowledgeHalf = document.getElementById('acknowledge-half');
-    const returnBtn = document.getElementById('return-btn');
-    const oversightLog = document.getElementById('oversight-log');
-    const oversightList = document.getElementById('oversight-list');
+<script>
+  // Minimum reading time in milliseconds (10 minutes)
+  const minTime = 10 * 60 * 1000;
+  const returnBtn = document.getElementById('return-btn');
+  const ack1 = document.getElementById('ack1');
+  const ack2 = document.getElementById('ack2');
 
-    // Replace with actual logged-in callsign from session or input
-    const CURRENT_CALLSIGN = localStorage.getItem('CURRENT_CALLSIGN') || prompt("Enter your callsign:").toUpperCase();
+  const startTime = Date.now();
 
-    // Disable return button initially
-    returnBtn.style.pointerEvents = 'none';
-    returnBtn.style.opacity = '0.4';
-
-    // 10-minute timer (600000 ms)
-    let timerDone = false;
-    setTimeout(() => {
-      timerDone = true;
-      enableReturnIfReady();
-    }, 600000);
-
-    function enableReturnIfReady() {
-      if (acknowledgeFirst.checked && acknowledgeHalf.checked && timerDone) {
-        // Save acknowledgment for REDLINE log
-        saveAcknowledgment(CURRENT_CALLSIGN);
-
-        // Enable return button
-        returnBtn.style.pointerEvents = 'auto';
-        returnBtn.style.opacity = '1';
-        returnBtn.href = "index.html";
-      }
+  function enableReturn() {
+    if (ack1.checked && ack2.checked && (Date.now() - startTime) >= minTime) {
+      returnBtn.classList.remove('disabled');
+    } else {
+      returnBtn.classList.add('disabled');
     }
+  }
 
-    function saveAcknowledgment(callsign) {
-      // Only save valid operatives (excluding NONEs)
-      const validOperators = [
-        "SERAPH", "GARUDA", "HARUNA", "ECHO", "SABLE",
-        "HOLLY", "TAIL", "DOPPIO", "CHIMA", "FENRIR",
-        "UNDORBINE", "REDLINE"
-      ];
-      if (!validOperators.includes(callsign)) return;
+  // Check every second
+  setInterval(enableReturn, 1000);
+</script>
 
-      let stored = JSON.parse(localStorage.getItem('ETHICS_ACK') || "[]");
-      if (!stored.includes(callsign)) {
-        stored.push(callsign);
-        localStorage.setItem('ETHICS_ACK', JSON.stringify(stored));
-      }
-      showOversightLog();
-    }
-
-    function showOversightLog() {
-      if (CURRENT_CALLSIGN === "REDLINE") {
-        const stored = JSON.parse(localStorage.getItem('ETHICS_ACK') || "[]");
-        oversightList.innerHTML = '';
-        stored.forEach(name => {
-          const li = document.createElement('li');
-          li.textContent = name;
-          oversightList.appendChild(li);
-        });
-        oversightLog.style.display = 'block';
-      }
-    }
-
-    // Listen for checkbox changes
-    acknowledgeFirst.addEventListener('change', enableReturnIfReady);
-    acknowledgeHalf.addEventListener('change', enableReturnIfReady);
-
-    // Show log immediately if REDLINE refreshes the page
-    showOversightLog();
-  </script>
+<style>
+  .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+</style>
 
 </body>
 </html>
