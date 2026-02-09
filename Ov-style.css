@@ -1,16 +1,32 @@
 /* ===== OVERSIGHT TERMINAL STYLE (DARK BLUE) ===== */
 
-/* Terminal container */
-.terminal {
-  border: 1px solid #2f6bff;
-  padding: 20px;
-  width: 92%;
-  max-width: 420px;
+/* Full-screen adjustment */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background-color: #030814;
   font-family: monospace;
-  color: #4f7cff !important;
+}
 
-  /* OVERSIGHT glow + pulse */
+/* Terminal container */
+.terminal {
+  width: 100%;
+  height: 100%;
+  max-width: none; /* override previous max-width */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #030814;
+  color: #4f7cff;
+  overflow-y: auto; /* scroll content if necessary */
+  display: flex;
+  flex-direction: column;
+}
+
+/* OVERSIGHT glow + pulse */
+.terminal {
   box-shadow:
     0 0 10px rgba(47, 107, 255, 0.4),
     0 0 25px rgba(47, 107, 255, 0.25);
@@ -32,29 +48,28 @@
   text-transform: uppercase;
 }
 
-/* Force all descendants of terminal to inherit terminal blue */
-.terminal,
-.terminal * {
+/* Force all descendants to inherit terminal blue */
+.terminal, .terminal * {
   color: #4f7cff !important;
   font-family: monospace !important;
   background-color: inherit !important;
 }
 
 /* Headings inside terminal */
-.terminal h1,
-.terminal h2 {
+.terminal h1, .terminal h2 {
   color: #6b8cff !important;
   animation: oversight-flicker 4s infinite;
 }
 
 /* Inputs */
-.terminal input {
+.terminal input, .terminal textarea {
   width: 100%;
   background-color: black !important;
   color: #4f7cff !important;
   border: 1px solid #2f6bff;
   padding: 8px;
   margin: 8px 0;
+  font-family: monospace !important;
 }
 
 /* Buttons */
@@ -78,16 +93,55 @@
     inset 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
+/* Tabs & Notes */
+.tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+.tab {
+  padding: 8px 12px;
+  border: 1px solid #2f6bff;
+  cursor: pointer;
+  background-color: #030814;
+  color: #4f7cff;
+  font-weight: bold;
+  text-transform: uppercase;
+  user-select: none;
+}
+.tab.active {
+  background-color: #2f6bff;
+  color: #030814;
+}
+.tab-content {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+}
+.tab-content.active { display: flex; }
+
+.notes-container, .observation-container { display: flex; flex-direction: column; gap: 20px; }
+
+.operative-note label, .observation-note label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #6b8cff;
+}
+
+.operative-note textarea, .observation-note textarea, .observation-note input {
+  width: 100%;
+  min-height: 80px;
+  padding: 8px;
+  background-color: #030814;
+  border: 1px solid #2f6bff;
+  color: #4f7cff;
+  font-family: monospace;
+  resize: vertical;
+}
+.observation-note input { min-height: 30px; }
+
 /* Flags & Status */
 .terminal .flag-green { color: #4f7cff !important; }
 .terminal .flag-yellow { color: #ffd36b !important; }
 .terminal .flag-red { color: #ff6b6b !important; }
 
-.terminal .status-active {
-  color: #4f7cff !important;
-  animation: oversight-heartbeat 1.8s infinite;
-}
-
+.terminal .status-active { color: #4f7cff !important; animation: oversight-heartbeat 1.8s infinite; }
 .terminal .status-mia { color: #ffd36b !important; }
 .terminal .status-kia { color: #ff6b6b !important; }
 
@@ -101,8 +155,7 @@
 }
 
 /* Preformatted text / code blocks */
-.terminal pre,
-.terminal code {
+.terminal pre, .terminal code {
   color: #4f7cff !important;
   background-color: black !important;
   font-family: monospace !important;
@@ -126,9 +179,7 @@
   color: #4f7cff !important;
 }
 
-/* All overlay text inherits blue unless overridden */
-#warning-overlay,
-#warning-overlay * {
+#warning-overlay, #warning-overlay * {
   color: #4f7cff !important;
   font-family: monospace !important;
 }
@@ -163,7 +214,6 @@
 }
 
 /* ===== ANIMATIONS ===== */
-
 @keyframes oversight-pulse {
   0%, 100% {
     box-shadow:
@@ -203,4 +253,4 @@
   80% { transform: translate(1px,-2px); opacity:1; }
   90% { transform: translate(-2px,1px); opacity:0.9; }
   100% { transform: translate(0,0); opacity:1; }
-  }
+}
