@@ -23,13 +23,9 @@
     </p>
   </div>
 
-  <!-- WARNING OVERLAY (outside terminal, not affected by terminal CSS) -->
+  <!-- WARNING OVERLAY (outside terminal, independent colors) -->
   <div id="warning-overlay" style="display:none;">
-    <div class="warning-text">
-      WRONG CALLSIGN<br>
-      ACCESS UNAUTHORIZED<br>
-      SERVER SHUTDOWN
-    </div>
+    <div id="warning-text-container"></div>
     <div class="scanlines"></div>
   </div>
 
@@ -57,28 +53,23 @@
       const validOperators = ["REDLINE", "SERAPH", "GARUDA", "HARUNA"];
       const terminalText = document.getElementById('terminal-text');
       const overlay = document.getElementById('warning-overlay');
+      const warningContainer = document.getElementById('warning-text-container');
 
       // ===== LABORATORY =====
       if (key === "LABORATORY") {
-
         if (!validOperators.includes(callsign)) {
           callsignInput.disabled = true;
           keyInput.disabled = true;
 
-          typeText(
-            terminalText,
-            'SERVER LOADING...\nANAUTHORIZED OPERATOR DETECTED'
-          );
+          typeText(terminalText, 'SERVER LOADING...\nANAUTHORIZED OPERATOR DETECTED');
 
           setTimeout(() => {
             overlay.style.display = 'flex';
-            overlay.innerHTML = `
-              <div class="warning-text">
-                WRONG CALLSIGN<br>
-                ACCESS UNAUTHORIZED<br>
-                SERVER SHUTDOWN
-              </div>
-              <div class="scanlines"></div>
+            warningContainer.className = 'warning-text';
+            warningContainer.innerHTML = `
+              WRONG CALLSIGN<br>
+              ACCESS UNAUTHORIZED<br>
+              SERVER SHUTDOWN
             `;
           }, 600);
 
@@ -86,56 +77,37 @@
         }
 
         typeText(terminalText, 'ACCESS GRANTED...');
-
-        setTimeout(() => {
-          window.location.href = "database.html";
-        }, 1200);
-
+        setTimeout(() => { window.location.href = "database.html"; }, 1200);
         return;
       }
 
       // ===== REDLINE / BLACKSITE =====
       if (callsign === "REDLINE" && key === "BLACKSITE") {
-
         callsignInput.disabled = true;
         keyInput.disabled = true;
 
-        typeText(
-          terminalText,
-          'BLACKSITE ACCESS CONFIRMED...\nOVERSIGHT INTERFACE UNLOCKED'
-        );
+        typeText(terminalText, 'BLACKSITE ACCESS CONFIRMED...\nOVERSIGHT INTERFACE UNLOCKED');
 
-        setTimeout(() => {
-          window.location.href = "private.html";
-        }, 1200);
-
+        setTimeout(() => { window.location.href = "private.html"; }, 1200);
         return;
       }
 
       // ===== BLACKSITE (all others denied) =====
-      if (key === "BLACKSITE") {
+      if (key === "BLACKSITE" && callsign !== "REDLINE") {
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
 
-        if (callsign !== "REDLINE") {
-          callsignInput.disabled = true;
-          keyInput.disabled = true;
+        typeText(terminalText, 'OVERSIGHT SYSTEM LOADING...\nOVERSIGHT OPERATOR DETECTED');
 
-          typeText(
-            terminalText,
-            'OVERSIGHT SYSTEM LOADING...\nOVERSIGHT OPERATOR DETECTED'
-          );
+        overlay.style.display = 'flex';
+        warningContainer.className = 'warning-text-oversight';
+        warningContainer.innerHTML = `
+          SINCE IT FAILED FOR YOU.<br>
+          DON'T TRY AGAIN.<br>
+          OVERSIGHT ONLY.
+        `;
 
-          overlay.style.display = 'flex';
-          overlay.innerHTML = `
-            <div class="warning-text-oversight">
-              SINCE IT FAILED FOR YOU.<br>
-              DON'T TRY AGAIN.<br>
-              OVERSIGHT ONLY.
-            </div>
-            <div class="scanlines"></div>
-          `;
-
-          return;
-        }
+        return;
       }
 
       // ===== EXECUTIVE (all others denied) =====
@@ -143,19 +115,14 @@
         callsignInput.disabled = true;
         keyInput.disabled = true;
 
-        typeText(
-          terminalText,
-          'EXECUTIVE ACCESS DETECTED...\nUNAUTHORIZED OPERATOR'
-        );
+        typeText(terminalText, 'EXECUTIVE ACCESS DETECTED...\nUNAUTHORIZED OPERATOR');
 
         overlay.style.display = 'flex';
-        overlay.innerHTML = `
-          <div class="warning-text-executive">
-            SINCE IT FAILED FOR YOU.<br>
-            DON'T TRY AGAIN.<br>
-            EXECUTIVE ONLY.
-          </div>
-          <div class="scanlines"></div>
+        warningContainer.className = 'warning-text-executive';
+        warningContainer.innerHTML = `
+          SINCE IT FAILED FOR YOU.<br>
+          DON'T TRY AGAIN.<br>
+          EXECUTIVE ONLY.
         `;
 
         return;
@@ -163,19 +130,11 @@
 
       // ===== SERAPH / EXECUTIVE =====
       if (callsign === "SERAPH" && key === "EXECUTIVE") {
-
         callsignInput.disabled = true;
         keyInput.disabled = true;
 
-        typeText(
-          terminalText,
-          'EXECUTIVE CLEARANCE CONFIRMED...'
-        );
-
-        setTimeout(() => {
-          window.location.href = "ex-database.html";
-        }, 1200);
-
+        typeText(terminalText, 'EXECUTIVE CLEARANCE CONFIRMED...');
+        setTimeout(() => { window.location.href = "ex-database.html"; }, 1200);
         return;
       }
 
@@ -184,10 +143,7 @@
       keyInput.value = '';
     }
 
-    typeText(
-      document.getElementById('terminal-text'),
-      "SECURE INTERNAL SYSTEM..."
-    );
+    typeText(document.getElementById('terminal-text'), "SECURE INTERNAL SYSTEM...");
   </script>
 
 </body>
