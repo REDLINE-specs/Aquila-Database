@@ -34,6 +34,14 @@
     <p class="ethics-rule">8. Medical personnel must be protected and allowed to perform their duties.</p>
     <p class="ethics-rule">9. Looting, theft, or unauthorized acquisition of property is forbidden.</p>
     <p class="ethics-rule">10. Personal vendettas must never influence operational decisions.</p>
+
+    <!-- FIRST ACKNOWLEDGEMENT -->
+    <div class="acknowledgement">
+      <label>
+        <input type="checkbox" id="acknowledge-first"> I have read and understood the first section of rules.
+      </label>
+    </div>
+
     <p class="ethics-rule">11. Collateral damage must be minimized at all costs.</p>
     <p class="ethics-rule">12. Collateral damage must be reported truthfully and in full.</p>
     <p class="ethics-rule">13. Falsifying reports is a severe ethical violation.</p>
@@ -53,6 +61,14 @@
     <p class="ethics-rule">27. Torture is prohibited under all circumstances.</p>
     <p class="ethics-rule">28. Psychological abuse is prohibited.</p>
     <p class="ethics-rule">29. Sexual misconduct is prohibited.</p>
+
+    <!-- SECOND ACKNOWLEDGEMENT -->
+    <div class="acknowledgement">
+      <label>
+        <input type="checkbox" id="acknowledge-half"> I have read and understood the first half of the rules.
+      </label>
+    </div>
+
     <p class="ethics-rule">30. Exploitation of civilians is prohibited.</p>
     <p class="ethics-rule">31. Use of prohibited weapons is forbidden.</p>
     <p class="ethics-rule">32. Unauthorized experimentation on subjects is forbidden.</p>
@@ -89,13 +105,90 @@
     </div>
 
     <!-- LOG IN RETURN BUTTON -->
-<a class="btn" href="index.html">RETURN TO LOG IN SCREEN</a>
-    
+    <a class="btn" href="#" id="return-btn">RETURN TO LOG IN SCREEN</a>
+
+    <!-- REDLINE-exclusive Oversight Log -->
+    <div id="oversight-log" style="display:none; margin-top:20px;">
+      <h3>OVERSIGHT LOG — Operatives who acknowledged the rules:</h3>
+      <ul id="oversight-list"></ul>
+    </div>
+
     <div class="footer">
       Controlled by SA-09 “REDLINE”
     </div>
 
   </div>
+
+  <script>
+    const acknowledgeFirst = document.getElementById('acknowledge-first');
+    const acknowledgeHalf = document.getElementById('acknowledge-half');
+    const returnBtn = document.getElementById('return-btn');
+    const oversightLog = document.getElementById('oversight-log');
+    const oversightList = document.getElementById('oversight-list');
+
+    // Replace with actual logged-in callsign from session or input
+    const CURRENT_CALLSIGN = localStorage.getItem('CURRENT_CALLSIGN') || prompt("Enter your callsign:").toUpperCase();
+
+    // Disable return button initially
+    returnBtn.style.pointerEvents = 'none';
+    returnBtn.style.opacity = '0.4';
+
+    // 10-minute timer (600000 ms)
+    let timerDone = false;
+    setTimeout(() => {
+      timerDone = true;
+      enableReturnIfReady();
+    }, 600000);
+
+    function enableReturnIfReady() {
+      if (acknowledgeFirst.checked && acknowledgeHalf.checked && timerDone) {
+        // Save acknowledgment for REDLINE log
+        saveAcknowledgment(CURRENT_CALLSIGN);
+
+        // Enable return button
+        returnBtn.style.pointerEvents = 'auto';
+        returnBtn.style.opacity = '1';
+        returnBtn.href = "index.html";
+      }
+    }
+
+    function saveAcknowledgment(callsign) {
+      // Only save valid operatives (excluding NONEs)
+      const validOperators = [
+        "SERAPH", "GARUDA", "HARUNA", "ECHO", "SABLE",
+        "HOLLY", "TAIL", "DOPPIO", "CHIMA", "FENRIR",
+        "UNDORBINE", "REDLINE"
+      ];
+      if (!validOperators.includes(callsign)) return;
+
+      let stored = JSON.parse(localStorage.getItem('ETHICS_ACK') || "[]");
+      if (!stored.includes(callsign)) {
+        stored.push(callsign);
+        localStorage.setItem('ETHICS_ACK', JSON.stringify(stored));
+      }
+      showOversightLog();
+    }
+
+    function showOversightLog() {
+      if (CURRENT_CALLSIGN === "REDLINE") {
+        const stored = JSON.parse(localStorage.getItem('ETHICS_ACK') || "[]");
+        oversightList.innerHTML = '';
+        stored.forEach(name => {
+          const li = document.createElement('li');
+          li.textContent = name;
+          oversightList.appendChild(li);
+        });
+        oversightLog.style.display = 'block';
+      }
+    }
+
+    // Listen for checkbox changes
+    acknowledgeFirst.addEventListener('change', enableReturnIfReady);
+    acknowledgeHalf.addEventListener('change', enableReturnIfReady);
+
+    // Show log immediately if REDLINE refreshes the page
+    showOversightLog();
+  </script>
 
 </body>
 </html>
