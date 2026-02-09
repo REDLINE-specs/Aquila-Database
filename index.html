@@ -3,6 +3,28 @@
 <head>
   <title>AQUILA ACCESS TERMINAL</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* FULL SCREEN FIX */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .terminal {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
 
@@ -52,7 +74,6 @@
       const callsign = callsignInput.value.trim().toUpperCase();
       const key = keyInput.value.trim().toUpperCase();
 
-      // ===== LABORATORY valid callsigns =====
       const validOperators = [
         "SERAPH", "GARUDA", "HARUNA", "ECHO", "SABLE",
         "HOLLY", "TAIL", "DOPPIO", "CHIMA", "FENRIR",
@@ -62,7 +83,7 @@
       const terminalText = document.getElementById('terminal-text');
       const overlay = document.getElementById('warning-overlay');
 
-      // ===== LABORATORY =====
+      // LABORATORY
       if (key === "LABORATORY") {
         if (!validOperators.includes(callsign)) {
           callsignInput.disabled = true;
@@ -88,7 +109,7 @@
         return;
       }
 
-      // ===== ETHICS normal key =====
+      // ETHICS normal key
       if (key === "ETHICS") {
         if (!validOperators.includes(callsign)) {
           callsignInput.disabled = true;
@@ -114,7 +135,7 @@
         return;
       }
 
-      // ===== ETHICS exclusive for REDLINE =====
+      // ETHICS exclusive for REDLINE
       if (key === "ETHICSOV" && callsign === "REDLINE") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
@@ -125,7 +146,7 @@
         return;
       }
 
-      // ===== REDLINE / BLACKSITE =====
+      // REDLINE / BLACKSITE
       if (callsign === "REDLINE" && key === "BLACKSITE") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
@@ -136,7 +157,7 @@
         return;
       }
 
-      // ===== BLACKSITE (all others denied) =====
+      // BLACKSITE all others denied
       if (key === "BLACKSITE" && callsign !== "REDLINE") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
@@ -153,7 +174,7 @@
         return;
       }
 
-      // ===== EXECUTIVE (all others denied) =====
+      // EXECUTIVE all others denied
       if (key === "EXECUTIVE" && callsign !== "SERAPH") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
@@ -170,7 +191,7 @@
         return;
       }
 
-      // ===== SERAPH / EXECUTIVE =====
+      // SERAPH / EXECUTIVE
       if (callsign === "SERAPH" && key === "EXECUTIVE") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
@@ -181,7 +202,7 @@
         return;
       }
 
-      // ===== WRONG PASSWORD =====
+      // WRONG PASSWORD
       typeText(terminalText, 'ACCESS DENIED...');
       keyInput.value = '';
     }
@@ -192,7 +213,7 @@
   <style>
     /* OVERSIGHT blue glitch style */
     .warning-text-oversight {
-      color: #4f7cff !important; /* OVERSIGHT blue */
+      color: #4f7cff !important;
       font-size: 3rem;
       font-weight: bold;
       text-align: center;
@@ -204,7 +225,7 @@
 
     /* EXECUTIVE red glitch style */
     .warning-text-executive {
-      color: #ff3333 !important; /* Executive red */
+      color: #ff3333 !important;
       font-size: 3rem;
       font-weight: bold;
       text-align: center;
@@ -216,7 +237,7 @@
 
     /* ETHICS green glitch style */
     .warning-text-ethics {
-      color: #00ff88 !important; /* LABORATORY green */
+      color: #00ff88 !important;
       font-size: 3rem;
       font-weight: bold;
       text-align: center;
