@@ -10,14 +10,14 @@
 
   <div class="terminal">
     <h1 id="terminal-title">AQUILA PMC</h1>
-    <p id="terminal-text">SECURE INTERNAL SYSTEM...</p>
+    <p id="terminal-text" style="color:#00ff00;">SECURE INTERNAL SYSTEM...</p> <!-- green login text -->
 
-    <input type="text" id="callsign" placeholder="CALLSIGN">
-    <input type="password" id="accesskey" placeholder="ACCESS KEY">
+    <input type="text" id="callsign" placeholder="CALLSIGN" style="color:#00ff00;">
+    <input type="password" id="accesskey" placeholder="ACCESS KEY" style="color:#00ff00;">
 
     <button type="button" class="btn" onclick="checkAccess()">ENTER</button>
 
-    <p class="warning">
+    <p class="warning" style="color:#00ff00;">
       SYSTEM OVERSIGHT: SA-09 “REDLINE”<br>
       UNAUTHORIZED ACCESS WILL BE LOGGED
     </p>
@@ -66,6 +66,7 @@
           setTimeout(() => {
             overlay.style.display = 'flex';
             warningContainer.className = 'warning-text';
+            warningContainer.style.color = '#00ff00 !important'; // green
             warningContainer.innerHTML = `
               WRONG CALLSIGN<br>
               ACCESS UNAUTHORIZED<br>
@@ -101,6 +102,7 @@
 
         overlay.style.display = 'flex';
         warningContainer.className = 'warning-text-oversight';
+        warningContainer.style.color = '#4f7cff !important'; // blue
         warningContainer.innerHTML = `
           SINCE IT FAILED FOR YOU.<br>
           DON'T TRY AGAIN.<br>
@@ -119,6 +121,7 @@
 
         overlay.style.display = 'flex';
         warningContainer.className = 'warning-text-executive';
+        warningContainer.style.color = '#ff3333 !important'; // red
         warningContainer.innerHTML = `
           SINCE IT FAILED FOR YOU.<br>
           DON'T TRY AGAIN.<br>
