@@ -1,32 +1,28 @@
-/* ===== FULL-SCREEN UNIVERSAL RULES ===== */
+/* ===== FULL UNIVERSAL TERMINAL STYLE (FULL SCREEN) ===== */
+
+/* Ensure html and body take full viewport */
 html, body {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* prevents scrollbars */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #040704; /* default background for full-screen */
+  width: 100%;
+  height: 100%;
 }
-
-/* ===== FULL UNIVERSAL TERMINAL STYLE ===== */
 
 /* Terminal container */
 .terminal {
   border: 1px solid #00ff88;
   padding: 20px;
-  width: 92%;
-  max-width: 420px;
+  width: 100vw;         /* full viewport width */
+  height: 100vh;        /* full viewport height */
+  max-width: none;      /* remove previous max-width */
+  max-height: none;
   background-color: #040704;
   font-family: monospace;
   color: #00ff88 !important;
-
-  /* Centering inside flex body */
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  overflow-y: auto;     /* scroll if content is too tall */
 }
 
 /* Force all descendants of terminal to inherit terminal green */
@@ -79,7 +75,11 @@ html, body {
 .terminal .status-kia { color: #ff4444 !important; }
 
 /* Footer */
-.terminal .footer { margin-top: 20px; font-size: 11px; color: #888; }
+.terminal .footer { 
+  margin-top: 20px; 
+  font-size: 11px; 
+  color: #888; 
+}
 
 /* Preformatted text / code blocks */
 .terminal pre, 
