@@ -93,6 +93,38 @@
         return;
       }
 
+      // ===== ETHICS EXCLUSIVE KEY =====
+      if (key === "ETHICS") {
+        if (!validOperators.includes(callsign)) {
+          callsignInput.disabled = true;
+          keyInput.disabled = true;
+
+          typeText(terminalText, 'ACCESS DENIED...\nINVALID OPERATOR');
+
+          overlay.style.display = 'flex';
+          overlay.innerHTML = `
+            <div class="warning-text-ethics">
+              SINCE IT FAILED FOR YOU.<br>
+              DON'T TRY AGAIN.<br>
+              ETHICS ONLY.
+            </div>
+            <div class="scanlines"></div>
+          `;
+          return;
+        }
+
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
+
+        typeText(terminalText, 'ETHICS CLEARANCE CONFIRMED...\nLOADING DIRECTIVE');
+
+        setTimeout(() => {
+          window.location.href = "ethics.html";
+        }, 1200);
+
+        return;
+      }
+
       // ===== REDLINE / BLACKSITE =====
       if (callsign === "REDLINE" && key === "BLACKSITE") {
         callsignInput.disabled = true;
@@ -185,6 +217,18 @@
     /* EXECUTIVE red glitch style */
     .warning-text-executive {
       color: #ff3333 !important; /* Executive red */
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: glitch 0.2s infinite;
+      position: relative;
+    }
+
+    /* ETHICS green glitch style */
+    .warning-text-ethics {
+      color: #00ff88 !important; /* LABORATORY green */
       font-size: 3rem;
       font-weight: bold;
       text-align: center;
