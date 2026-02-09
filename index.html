@@ -52,21 +52,23 @@
       const callsign = callsignInput.value.trim().toUpperCase();
       const key = keyInput.value.trim().toUpperCase();
 
-      const validOperators = ["REDLINE", "SERAPH", "GARUDA", "HARUNA"];
+      // ===== LABORATORY valid callsigns =====
+      const validOperators = [
+        "SERAPH", "GARUDA", "HARUNA", "ECHO", "SABLE",
+        "HOLLY", "TAIL", "DOPPIO", "CHIMA", "FENRIR",
+        "UNDORBINE", "REDLINE"
+      ];
+
       const terminalText = document.getElementById('terminal-text');
       const overlay = document.getElementById('warning-overlay');
 
       // ===== LABORATORY =====
       if (key === "LABORATORY") {
-
         if (!validOperators.includes(callsign)) {
           callsignInput.disabled = true;
           keyInput.disabled = true;
 
-          typeText(
-            terminalText,
-            'SERVER LOADING...\nANAUTHORIZED OPERATOR DETECTED'
-          );
+          typeText(terminalText, 'SERVER LOADING...\nANAUTHORIZED OPERATOR DETECTED');
 
           setTimeout(() => {
             overlay.style.display = 'flex';
@@ -84,7 +86,6 @@
         }
 
         typeText(terminalText, 'ACCESS GRANTED...');
-
         setTimeout(() => {
           window.location.href = "database.html";
         }, 1200);
@@ -94,14 +95,10 @@
 
       // ===== REDLINE / BLACKSITE =====
       if (callsign === "REDLINE" && key === "BLACKSITE") {
-
         callsignInput.disabled = true;
         keyInput.disabled = true;
 
-        typeText(
-          terminalText,
-          'BLACKSITE ACCESS CONFIRMED...\nOVERSIGHT INTERFACE UNLOCKED'
-        );
+        typeText(terminalText, 'BLACKSITE ACCESS CONFIRMED...\nOVERSIGHT INTERFACE UNLOCKED');
 
         setTimeout(() => {
           window.location.href = "private.html";
@@ -111,29 +108,23 @@
       }
 
       // ===== BLACKSITE (all others denied) =====
-      if (key === "BLACKSITE") {
+      if (key === "BLACKSITE" && callsign !== "REDLINE") {
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
 
-        if (callsign !== "REDLINE") {
-          callsignInput.disabled = true;
-          keyInput.disabled = true;
+        typeText(terminalText, 'OVERSIGHT SYSTEM LOADING...\nOVERSIGHT OPERATOR DETECTED');
 
-          typeText(
-            terminalText,
-            'OVERSIGHT SYSTEM LOADING...\nOVERSIGHT OPERATOR DETECTED'
-          );
+        overlay.style.display = 'flex';
+        overlay.innerHTML = `
+          <div class="warning-text-oversight">
+            SINCE IT FAILED FOR YOU.<br>
+            DON'T TRY AGAIN.<br>
+            OVERSIGHT ONLY.
+          </div>
+          <div class="scanlines"></div>
+        `;
 
-          overlay.style.display = 'flex';
-          overlay.innerHTML = `
-            <div class="warning-text-oversight">
-              SINCE IT FAILED FOR YOU.<br>
-              DON'T TRY AGAIN.<br>
-              OVERSIGHT ONLY.
-            </div>
-            <div class="scanlines"></div>
-          `;
-
-          return;
-        }
+        return;
       }
 
       // ===== EXECUTIVE (all others denied) =====
@@ -141,10 +132,7 @@
         callsignInput.disabled = true;
         keyInput.disabled = true;
 
-        typeText(
-          terminalText,
-          'EXECUTIVE ACCESS DETECTED...\nUNAUTHORIZED OPERATOR'
-        );
+        typeText(terminalText, 'EXECUTIVE ACCESS DETECTED...\nUNAUTHORIZED OPERATOR');
 
         overlay.style.display = 'flex';
         overlay.innerHTML = `
@@ -161,14 +149,10 @@
 
       // ===== SERAPH / EXECUTIVE =====
       if (callsign === "SERAPH" && key === "EXECUTIVE") {
-
         callsignInput.disabled = true;
         keyInput.disabled = true;
 
-        typeText(
-          terminalText,
-          'EXECUTIVE CLEARANCE CONFIRMED...'
-        );
+        typeText(terminalText, 'EXECUTIVE CLEARANCE CONFIRMED...');
 
         setTimeout(() => {
           window.location.href = "ex-database.html";
@@ -182,10 +166,7 @@
       keyInput.value = '';
     }
 
-    typeText(
-      document.getElementById('terminal-text'),
-      "SECURE INTERNAL SYSTEM..."
-    );
+    typeText(document.getElementById('terminal-text'), "SECURE INTERNAL SYSTEM...");
   </script>
 
   <style>
