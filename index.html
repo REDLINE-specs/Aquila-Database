@@ -67,9 +67,7 @@
         if (!validOperators.includes(callsign)) {
           callsignInput.disabled = true;
           keyInput.disabled = true;
-
-          typeText(terminalText, 'SERVER LOADING...\nANAUTHORIZED OPERATOR DETECTED');
-
+          typeText(terminalText, 'SERVER LOADING...\nUNAHTORIZED OPERATOR DETECTED');
           setTimeout(() => {
             overlay.style.display = 'flex';
             overlay.innerHTML = `
@@ -81,26 +79,21 @@
               <div class="scanlines"></div>
             `;
           }, 600);
-
           return;
         }
-
         typeText(terminalText, 'ACCESS GRANTED...');
         setTimeout(() => {
           window.location.href = "database.html";
         }, 1200);
-
         return;
       }
 
-      // ===== ETHICS EXCLUSIVE KEY =====
+      // ===== ETHICS normal key =====
       if (key === "ETHICS") {
         if (!validOperators.includes(callsign)) {
           callsignInput.disabled = true;
           keyInput.disabled = true;
-
           typeText(terminalText, 'ACCESS DENIED...\nINVALID OPERATOR');
-
           overlay.style.display = 'flex';
           overlay.innerHTML = `
             <div class="warning-text-ethics">
@@ -112,16 +105,23 @@
           `;
           return;
         }
-
         callsignInput.disabled = true;
         keyInput.disabled = true;
-
         typeText(terminalText, 'ETHICS CLEARANCE CONFIRMED...\nLOADING DIRECTIVE');
-
         setTimeout(() => {
           window.location.href = "ethics.html";
         }, 1200);
+        return;
+      }
 
+      // ===== ETHICS exclusive for REDLINE =====
+      if (key === "ETHICSOV" && callsign === "REDLINE") {
+        callsignInput.disabled = true;
+        keyInput.disabled = true;
+        typeText(terminalText, 'EXCLUSIVE OVERSIGHT ACCESS...\nLOADING DIRECTIVE FOR REDLINE');
+        setTimeout(() => {
+          window.location.href = "ethics-oversight.html";
+        }, 1200);
         return;
       }
 
@@ -129,13 +129,10 @@
       if (callsign === "REDLINE" && key === "BLACKSITE") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
-
         typeText(terminalText, 'BLACKSITE ACCESS CONFIRMED...\nOVERSIGHT INTERFACE UNLOCKED');
-
         setTimeout(() => {
           window.location.href = "private.html";
         }, 1200);
-
         return;
       }
 
@@ -143,9 +140,7 @@
       if (key === "BLACKSITE" && callsign !== "REDLINE") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
-
         typeText(terminalText, 'OVERSIGHT SYSTEM LOADING...\nOVERSIGHT OPERATOR DETECTED');
-
         overlay.style.display = 'flex';
         overlay.innerHTML = `
           <div class="warning-text-oversight">
@@ -155,7 +150,6 @@
           </div>
           <div class="scanlines"></div>
         `;
-
         return;
       }
 
@@ -163,9 +157,7 @@
       if (key === "EXECUTIVE" && callsign !== "SERAPH") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
-
         typeText(terminalText, 'EXECUTIVE ACCESS DETECTED...\nUNAUTHORIZED OPERATOR');
-
         overlay.style.display = 'flex';
         overlay.innerHTML = `
           <div class="warning-text-executive">
@@ -175,7 +167,6 @@
           </div>
           <div class="scanlines"></div>
         `;
-
         return;
       }
 
@@ -183,13 +174,10 @@
       if (callsign === "SERAPH" && key === "EXECUTIVE") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
-
         typeText(terminalText, 'EXECUTIVE CLEARANCE CONFIRMED...');
-
         setTimeout(() => {
           window.location.href = "ex-database.html";
         }, 1200);
-
         return;
       }
 
