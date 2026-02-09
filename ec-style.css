@@ -1,18 +1,22 @@
 /* ===== ETHICS DIRECTIVE STYLE (GREEN / LABORATORY THEME) ===== */
 
+/* Full-screen terminal container */
 .terminal {
-  border: 1px solid #00ff88;
+  position: fixed;       /* Fill entire viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   padding: 20px;
-  width: 92%;
-  max-width: 600px;
   background-color: #070404;
   font-family: monospace;
   color: #00ff88 !important;
   box-shadow:
     0 0 10px rgba(0, 255, 136, 0.4),
     0 0 25px rgba(0, 255, 136, 0.25);
-  overflow-y: auto; /* Scroll if content is too long */
-  max-height: 90vh;
+  overflow-y: auto;      /* Scroll if content is too long */
+  box-sizing: border-box;
+  z-index: 1;
 }
 
 /* Force all descendants of terminal to inherit green */
