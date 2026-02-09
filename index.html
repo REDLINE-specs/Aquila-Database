@@ -2,7 +2,9 @@
 <html>
 <head>
   <title>AQUILA ACCESS TERMINAL</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">      <!-- Terminal & base styles -->
+  <link rel="stylesheet" href="ex-style.css">    <!-- Red EXECUTIVE glitch -->
+  <link rel="stylesheet" href="Ov-style.css">    <!-- Blue OVERSIGHT glitch -->
 </head>
 <body>
 
@@ -21,8 +23,8 @@
     </p>
   </div>
 
-  <!-- WARNING OVERLAY -->
-  <div id="warning-overlay">
+  <!-- WARNING OVERLAY (outside terminal, not affected by terminal CSS) -->
+  <div id="warning-overlay" style="display:none;">
     <div class="warning-text">
       WRONG CALLSIGN<br>
       ACCESS UNAUTHORIZED<br>
@@ -187,32 +189,6 @@
       "SECURE INTERNAL SYSTEM..."
     );
   </script>
-
-  <style>
-    /* OVERSIGHT blue glitch style */
-    .warning-text-oversight {
-      color: #4f7cff !important; /* OVERSIGHT blue */
-      font-size: 3rem;
-      font-weight: bold;
-      text-align: center;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      animation: glitch 0.2s infinite;
-      position: relative;
-    }
-
-    /* EXECUTIVE red glitch style */
-    .warning-text-executive {
-      color: #ff3333 !important; /* Executive red */
-      font-size: 3rem;
-      font-weight: bold;
-      text-align: center;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      animation: glitch 0.2s infinite;
-      position: relative;
-    }
-  </style>
 
 </body>
 </html>
