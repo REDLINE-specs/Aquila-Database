@@ -174,8 +174,8 @@
         return;
       }
 
-      // EXECUTIVE all others denied
-      if (key === "EXECUTIVE" && callsign !== "SERAPH") {
+      // EXECUTIVE all others denied (FULCRUM)
+      if (key === "FULCRUM" && callsign !== "SERAPH") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
         typeText(terminalText, 'EXECUTIVE ACCESS DETECTED...\nUNAUTHORIZED OPERATOR');
@@ -191,8 +191,8 @@
         return;
       }
 
-      // SERAPH / EXECUTIVE
-      if (callsign === "SERAPH" && key === "EXECUTIVE") {
+      // SERAPH / EXECUTIVE (FULCRUM)
+      if (callsign === "SERAPH" && key === "FULCRUM") {
         callsignInput.disabled = true;
         keyInput.disabled = true;
         typeText(terminalText, 'EXECUTIVE CLEARANCE CONFIRMED...');
