@@ -1,43 +1,37 @@
-/* ===== ETHICS DIRECTIVE STYLE (GREEN / LABORATORY THEME) ===== */
+/* ===== FULLSCREEN ETHICS DIRECTIVE STYLE ===== */
 
-/* FULLSCREEN BASE */
+/* Make page truly fullscreen */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   background-color: #070404;
+  font-family: monospace;
 }
 
-/* Center terminal but allow page to scroll naturally */
+/* Center terminal but allow full-page scroll */
 body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-/* TERMINAL */
+/* Terminal container */
 .terminal {
   border: 1px solid #00ff88;
-  padding: 20px;
-
-  /* FULLSCREEN BEHAVIOR */
+  padding: 24px;
   width: 100%;
   max-width: 900px;
-  min-height: 100vh;
-
-  /* IMPORTANT: NO CUTS */
-  height: auto;
-  max-height: none;
-  overflow: visible;
-
   background-color: #070404;
-  font-family: monospace;
   color: #00ff88 !important;
 
   box-shadow:
     0 0 10px rgba(0, 255, 136, 0.4),
     0 0 25px rgba(0, 255, 136, 0.25);
+
+  /* CRITICAL FIX */
+  min-height: 100vh;
 }
 
 /* Force all descendants to inherit theme */
@@ -51,49 +45,23 @@ body {
 /* Headings */
 .terminal h1,
 .terminal h2 {
-  font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 20px;
 }
 
-/* Buttons */
-.terminal .btn {
-  display: block;
-  text-align: center;
-  padding: 10px;
-  margin-top: 20px;
-  border: 1px solid #00ff88;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.terminal .btn:hover {
-  background: #00ff88;
-  color: #070404 !important;
-}
-
-/* Footer */
-.terminal .footer {
-  margin-top: 30px;
-  font-size: 11px;
-  opacity: 0.7;
-  letter-spacing: 1px;
-}
-
-/* ALERT BARS */
+/* Alert bars */
 .alert-bar {
   border: 2px solid #00ff88;
+  padding: 12px;
+  margin: 20px 0;
   text-align: center;
   font-weight: bold;
   letter-spacing: 2px;
-  padding: 12px;
-  margin: 20px 0;
-  text-transform: uppercase;
-  background-color: rgba(0, 255, 136, 0.05);
+  background: rgba(0, 255, 136, 0.05);
 }
 
-/* WARNING TEXT */
+/* Warning text */
 .ethics-warning {
   text-align: center;
   font-weight: bold;
@@ -101,20 +69,55 @@ body {
   font-size: 1.1rem;
 }
 
-/* RULES */
+/* Rules */
 .ethics-rule {
   margin: 8px 0;
   line-height: 1.6;
 }
 
-/* ACKNOWLEDGEMENTS */
+/* Acknowledgements */
 .acknowledgment {
-  margin: 20px 0;
+  margin: 25px 0;
   font-weight: bold;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: black;
+  border: 1px solid #00ff88;
+  color: #00ff88;
+}
+
+/* Buttons */
+.btn {
+  display: block;
+  margin: 30px 0;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #00ff88;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #00ff88;
+  color: #070404 !important;
 }
 
 /* Disabled button */
 .disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+/* Footer */
+.footer {
+  margin-top: 40px;
+  font-size: 11px;
+  opacity: 0.7;
+  letter-spacing: 1px;
+  text-align: center;
 }
