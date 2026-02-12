@@ -1,3 +1,12 @@
+/* FORCE UNIVERSAL BLACK BACKGROUND */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000 !important;
+}
+
 /* ===== FULL UNIVERSAL TERMINAL STYLE (FULL SCREEN) ===== */
 
 /* Ensure html and body take full viewport */
